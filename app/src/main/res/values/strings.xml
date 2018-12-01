@@ -2,6 +2,7 @@
     <string name="app_name">Cookbook</string>
 
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="categories_title">Categories fragment</string>
     <string name="favorite_title">Favorite fragment</string>
     <string name="store_title">Store fragment</string>
 
