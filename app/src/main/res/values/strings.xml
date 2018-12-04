@@ -6,4 +6,8 @@
     <string name="favorite_title">Favorite fragment</string>
     <string name="store_title">Store fragment</string>
 
+    <string name="categories_tab">Categories</string>
+    <string name="favorite_tab">Favorite</string>
+    <string name="shop_tab">Shop</string>
+
 </resources>
