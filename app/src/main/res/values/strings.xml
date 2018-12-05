@@ -9,5 +9,8 @@
     <string name="categories_tab">Categories</string>
     <string name="favorite_tab">Favorite</string>
     <string name="shop_tab">Shop</string>
+    
+    <string name="snacks">Snacks</string>
+    <string name="more">More</string>
 
 </resources>
