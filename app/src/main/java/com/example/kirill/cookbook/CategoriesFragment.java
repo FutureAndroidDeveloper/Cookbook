@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
+import android.widget.GridView;
 
 
 /**
@@ -22,8 +24,22 @@ public class CategoriesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_categories, container, false);
+        final View view = inflater.inflate(R.layout.fragment_categories, container, false);
+
+        int[] images = new int[Food.foods.length];
+        String[] names = new String[Food.foods.length];
+        for (int i = 0; i < Food.foods.length; i++) {
+            names[i] = Food.foods[i].getName();
+            images[i] = Food.foods[i].getImageResourceId();
+        }
+
+
+        GridView gridView = (GridView) view.findViewById(R.id.gridViewNew);
+        gridView.setAdapter(new CardGridAdapter(this.getContext(), names, images, R.layout.card_captioned_image));
+
+        return view;
     }
 
 }
