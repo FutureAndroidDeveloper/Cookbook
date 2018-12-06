@@ -24,20 +24,29 @@ public class CategoriesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_categories, container, false);
+        View view = inflater.inflate(R.layout.fragment_categories, container, false);
 
         int[] images = new int[Food.foods.length];
         String[] names = new String[Food.foods.length];
+
         for (int i = 0; i < Food.foods.length; i++) {
             names[i] = Food.foods[i].getName();
             images[i] = Food.foods[i].getImageResourceId();
         }
 
 
-        GridView gridView = (GridView) view.findViewById(R.id.gridViewNew);
-        gridView.setAdapter(new CardGridAdapter(this.getContext(), names, images, R.layout.card_captioned_image));
+        GridView gridViewSnack = (GridView) view.findViewById(R.id.gridViewSnack);
+        gridViewSnack.setAdapter(new CardGridAdapter(this.getContext(), names, images, R.layout.card_captioned_image));
+
+        GridView gridViewSalads = (GridView) view.findViewById(R.id.gridViewSalads);
+        gridViewSalads.setAdapter(new CardGridAdapter(this.getContext(), names, images, R.layout.card_captioned_image));
+
+        GridView gridViewDishes = (GridView) view.findViewById(R.id.gridViewDishes);
+        gridViewDishes.setAdapter(new CardGridAdapter(this.getContext(), names, images, R.layout.card_captioned_image));
+
+        GridView gridViewDesserts = (GridView) view.findViewById(R.id.gridViewDesserts);
+        gridViewDesserts.setAdapter(new CardGridAdapter(this.getContext(), names, images, R.layout.card_captioned_image));
 
         return view;
     }

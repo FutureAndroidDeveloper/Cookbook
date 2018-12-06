@@ -5,7 +5,7 @@ public class Food {
     private int imageResourceId;
 
     public static final Food[] foods = {
-            new Food("Name_1", R.drawable.diavolo),
+            new Food("Мивинка", R.drawable.diavolo),
             new Food("Name_2", R.drawable.farfalle),
             new Food("Name_3", R.drawable.fiori)
     };
