@@ -1,13 +1,16 @@
 package com.example.kirill.cookbook;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridLayout;
 import android.widget.GridView;
+import android.widget.Toast;
 
 
 /**
@@ -47,6 +50,16 @@ public class CategoriesFragment extends Fragment {
 
         GridView gridViewDesserts = (GridView) view.findViewById(R.id.gridViewDesserts);
         gridViewDesserts.setAdapter(new CardGridAdapter(this.getContext(), names, images, R.layout.card_captioned_image));
+
+        gridViewSnack.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(), DetailActivity.class);
+                intent.putExtra(DetailActivity.EXTRA_FOOD_ID, (int) id);
+
+                startActivity(intent);
+            }
+        });
 
         return view;
     }
