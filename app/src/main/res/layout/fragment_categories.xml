@@ -6,77 +6,155 @@
     android:layout_height="match_parent"
     tools:context=".CategoriesFragment">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/text"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/button"
-            android:layout_alignBottom="@+id/button"
-            android:layout_alignParentStart="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_marginStart="12dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="start|center_vertical"
+                android:text="@string/snacks"
+                android:textSize="18sp"
+                android:textAppearance="@style/TextAppearance.AppCompat"/>
+
+            <Button
+                android:id="@+id/snack_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/more" />
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/gridViewSnack"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="15dp"
-            android:layout_toStartOf="@id/button"
-            android:textAppearance="@android:style/TextAppearance"
-            android:text="@string/snacks" />
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:numColumns="2"
+            android:scrollbars="none" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:textColor="@color/colorButton"
-            android:text="@string/more"/>
 
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher_background"
-            android:layout_below="@id/button"/>
-        <ImageView
-            android:id="@+id/image1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher_background"
-            android:layout_below="@id/image"/>
-        <ImageView
-            android:id="@+id/image2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher_background"
-            android:layout_below="@id/image1"/>
 
-        <ImageView
-            android:id="@+id/image3"
-            android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher_background"
-            android:layout_below="@id/image2"/>
-        <ImageView
-            android:id="@+id/image4"
-            android:layout_width="wrap_content"
+            android:paddingTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_marginStart="12dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="start|center_vertical"
+                android:text="@string/salads"
+                android:textSize="18sp"
+                android:textAppearance="@style/TextAppearance.AppCompat"/>
+
+            <Button
+                android:id="@+id/salads_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/more" />
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/gridViewSalads"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:numColumns="2"
+            android:scrollbars="none" />
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher_background"
-            android:layout_below="@id/image3"/>
-        <ImageView
-            android:id="@+id/image5"
-            android:layout_width="wrap_content"
+            android:paddingTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_marginStart="12dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="start|center_vertical"
+                android:text="@string/main_dishes"
+                android:textSize="18sp"
+                android:textAppearance="@style/TextAppearance.AppCompat"/>
+
+            <Button
+                android:id="@+id/dishes_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/more" />
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/gridViewDishes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:numColumns="2"
+            android:scrollbars="none" />
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher_background"
-            android:layout_below="@id/image4"/>
-        <ImageView
-            android:id="@+id/image6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher_background"
-            android:layout_below="@id/image5"/>
-    </RelativeLayout>
+            android:paddingTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_marginStart="12dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="start|center_vertical"
+                android:text="@string/desserts"
+                android:textSize="18sp"
+                android:textAppearance="@style/TextAppearance.AppCompat"/>
+
+            <Button
+                android:id="@+id/desserts_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/more" />
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/gridViewDesserts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:numColumns="2"
+            android:scrollbars="none" />
+
+    </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>
