@@ -1,5 +1,7 @@
 package com.example.kirill.cookbook;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -32,7 +34,29 @@ public class MainActivity extends AppCompatActivity {
         // Connect tabLayout with viewPager
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(pager);
+
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_home);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_favorite);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_shopping_cart);
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                tab.getIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                tab.getIcon().setColorFilter(getResources().getColor(R.color.inactiveTab), PorterDuff.Mode.SRC_IN);
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                ;
+            }
+        });
     }
+
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
         public static final int SECTIONS_COUNT = 3;
@@ -58,20 +82,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             return SECTIONS_COUNT;
-        }
-
-        @Nullable
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return getResources().getText(R.string.categories_tab);
-                case 1:
-                    return getResources().getText(R.string.favorite_tab);
-                case 2:
-                    return getResources().getText(R.string.shop_tab);
-            }
-            return null;
         }
     }
 }
