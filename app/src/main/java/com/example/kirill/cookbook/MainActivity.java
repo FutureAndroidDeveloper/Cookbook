@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(pager);
 
+        // Set icons at main LabLayout
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_home);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_favorite);
         tabLayout.getTabAt(2).setIcon(R.drawable.ic_shopping_cart);

@@ -48,6 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_gravity="bottom"
+                app:tabGravity="fill"
                 app:tabIndicatorColor="@color/colorAccent"/>
 
         </android.support.design.widget.CollapsingToolbarLayout>
