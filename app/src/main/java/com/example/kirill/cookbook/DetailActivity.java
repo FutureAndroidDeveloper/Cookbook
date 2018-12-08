@@ -54,7 +54,7 @@ public class DetailActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return new CategoriesFragment();
+                    return new IngredientsFragment();
                 case 1:
                     return new FavoriteFragment();
                 case 2:
