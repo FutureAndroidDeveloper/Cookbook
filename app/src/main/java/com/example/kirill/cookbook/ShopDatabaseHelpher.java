@@ -15,19 +15,25 @@ public class ShopDatabaseHelpher extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE SHOP ( "
-                + "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + "NAME TEXT);");
+        updateMyDatabase(db, 0, DB_VERSION);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        updateMyDatabase(db, oldVersion, newVersion);
     }
 
     private static void insertShop(SQLiteDatabase database, String name) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("NAME", name);
         database.insert("SHOP", null, contentValues);
+    }
+
+    private void updateMyDatabase(SQLiteDatabase database, int oldVersion, int newVersion) {
+        if (oldVersion < 1) {
+            database.execSQL("CREATE TABLE SHOP ( "
+                    + "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + "NAME TEXT);");
+        }
     }
 }

@@ -12,12 +12,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class IngredientsFragment extends Fragment {
 
+    public static List<String> BdNames;
     final String[] catNames = new String[]{"Рыжик", "Барсик", "Мурзик",
             "Мурка", "Васька", "Томасина", "Кристина", "Пушок", "Дымка",
             "Кузя", "Китти", "Масяня", "Симба"};

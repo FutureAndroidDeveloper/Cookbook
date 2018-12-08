@@ -1,6 +1,7 @@
 package com.example.kirill.cookbook;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +55,14 @@ public class IngredientsAdapter extends BaseAdapter {
                 // Revers the checkbox
                 listCheck.setChecked(!listCheck.isChecked());
 
-                Toast.makeText(inflater.getContext(), "selected item: " + listText.getText(), Toast.LENGTH_SHORT).show();
+                if (listCheck.isChecked()) {
+
+                    IngredientsFragment.BdNames.add(listText.getText().toString());
+                } else {
+                    Toast.makeText(inflater.getContext(), "DELETE", Toast.LENGTH_SHORT).show();
+                }
+
+                //Toast.makeText(inflater.getContext(), "selected item: " + listText.getText(), Toast.LENGTH_SHORT).show();
             }
         });
 
