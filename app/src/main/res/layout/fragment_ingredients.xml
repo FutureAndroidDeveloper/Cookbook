@@ -10,23 +10,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="4dp">
 
         <ListView
-            android:id="@+id/list"
+            android:id="@+id/checkable_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:choiceMode="multipleChoice"
+            android:scrollbars="vertical"
+            android:nestedScrollingEnabled="true"
             android:drawSelectorOnTop="false"/>
 
         <Button
-            android:id="@+id/showList"
+            android:id="@+id/show_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="sdasda"/>
+            android:layout_gravity="center"
+            android:text="Show"/>
 
     </LinearLayout>
-
 
 
 </android.support.v4.widget.NestedScrollView>
