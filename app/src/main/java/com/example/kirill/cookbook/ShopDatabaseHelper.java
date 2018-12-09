@@ -5,11 +5,11 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class ShopDatabaseHelpher extends SQLiteOpenHelper {
+public class ShopDatabaseHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = "shop";
     public static final int DB_VERSION = 1;
 
-    public ShopDatabaseHelpher(Context context) {
+    public ShopDatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
