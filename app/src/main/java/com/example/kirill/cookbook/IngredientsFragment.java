@@ -71,8 +71,9 @@ public class IngredientsFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = ((TextView) view).getText().toString();
 
-                if (selectedItems.contains(selectedItem)) {
-                    selectedItems.remove(selectedItem);     // uncheck item
+                if (selectedItems.contains(selectedItem)) {     // uncheck item
+                    selectedItems.remove(selectedItem);
+                    deleteIngredientFromDatabase(selectedItem);
                 } else {
                     selectedItems.add(selectedItem);
                 }
@@ -159,5 +160,16 @@ public class IngredientsFragment extends Fragment {
             }
         }
         return position;
+    }
+
+    private void deleteIngredientFromDatabase(String ingredient) {
+        try {
+            database = shopDatabaseHelper.getWritableDatabase();
+            database.delete("SHOP", "NAME = ?", new String[]{ingredient});
+        } catch (SQLException e) {
+            Toast.makeText(layoutInflater.getContext(), "Database unavailable", Toast.LENGTH_SHORT).show();
+        }
+
+        database.close();
     }
 }
