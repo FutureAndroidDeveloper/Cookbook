@@ -10,10 +10,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckedTextView;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -25,6 +27,7 @@ import android.widget.Toast;
  */
 public class StoreFragment extends Fragment {
     private Cursor cursor;
+    SQLiteOpenHelper openHelper;
     private SQLiteDatabase database;
     private ListView ingredientsShopList;
 
@@ -43,9 +46,9 @@ public class StoreFragment extends Fragment {
         ingredientsShopList = (ListView) view.findViewById(R.id.checkable_ingredients_shop);
 
         // Create cursor
-        SQLiteOpenHelper openHelper = new ShopDatabaseHelper(inflater.getContext());
+        openHelper = new ShopDatabaseHelper(inflater.getContext());
         try {
-            database = openHelper.getReadableDatabase();
+            database = openHelper.getWritableDatabase();
             cursor = database.query("SHOP",                  // get all ingredients from DB
                     new String[]{"_id", "NAME"},
                     null, null, null, null, null);
@@ -79,12 +82,16 @@ public class StoreFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case 0: {
+                                deleteSelectedIngredients();
+                                updateCursorAndListView();
                                 Toast.makeText(getContext(), "DELETED SELECTED", Toast.LENGTH_SHORT).show();
+                                break;
                             }
                             case 1: {
                                 database.delete("SHOP", null, null);
-                                deleteIngredientsShoppingList();
-                                Toast.makeText(getContext(), "DELETED ALL", Toast.LENGTH_SHORT).show();
+                                updateCursorAndListView();
+                                Toast.makeText(getContext(), "The shopping list is cleared.", Toast.LENGTH_SHORT).show();
+                                break;
                             }
                         }
                     }
@@ -110,11 +117,26 @@ public class StoreFragment extends Fragment {
 //        cursor = newCursor;
 //    }
 
-    private void deleteIngredientsShoppingList() {
+    private void updateCursorAndListView() {
         Cursor newCursor = database.query("SHOP", new String[]{"_id", "NAME"},
                 null, null, null, null, null);
         CursorAdapter adapter = (CursorAdapter) ingredientsShopList.getAdapter();
         adapter.changeCursor(newCursor);
+        adapter.notifyDataSetChanged();
         cursor = newCursor;
+    }
+
+    private void deleteSelectedIngredients() {
+        SparseBooleanArray chosen = ingredientsShopList.getCheckedItemPositions();
+        int listSize = ingredientsShopList.getCount();
+
+        for (int i = 0; i < listSize; i++) {
+//            if (chosen.valueAt(i)) {
+            if (chosen.get(i)) {
+                CheckedTextView view = (CheckedTextView) ingredientsShopList.getChildAt(i);
+                String ingredientName = view.getText().toString();
+                database.delete("SHOP", "NAME = ?", new String[]{ingredientName});
+            }
+        }
     }
 }

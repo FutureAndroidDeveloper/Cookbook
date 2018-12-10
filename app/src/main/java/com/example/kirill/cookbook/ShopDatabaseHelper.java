@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class ShopDatabaseHelper extends SQLiteOpenHelper {
-    public static final String DB_NAME = "shop";
+    public static final String DB_NAME = "SHOP";
     public static final int DB_VERSION = 1;
 
     public ShopDatabaseHelper(Context context) {
