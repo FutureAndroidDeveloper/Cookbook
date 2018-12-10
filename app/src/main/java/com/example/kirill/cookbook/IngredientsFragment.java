@@ -36,7 +36,7 @@ public class IngredientsFragment extends Fragment {
 
     final String[] catNames = new String[]{"Рыжик", "Барсик", "Мурзик",
             "Мурка", "Васька", "Томасина", "Кристина", "Пушок", "Дымка",
-            "Кузя", "Китти", "Масяня", "Симба"};
+            "Кузя", "Китти", "Масяня", "Симба", "Паша", "Артём"};
 
     public IngredientsFragment() {
         // Required empty public constructor
@@ -84,7 +84,6 @@ public class IngredientsFragment extends Fragment {
         showButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("sadasd", "dasasd");
                 ; // добавить все в бд
             }
         });

@@ -107,16 +107,6 @@ public class StoreFragment extends Fragment {
         database.close();
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        Cursor newCursor = database.query("SHOP", new String[]{"_id", "NAME"},
-//                null, null, null, null, null);
-//        CursorAdapter adapter = (CursorAdapter) ingredientsShopList.getAdapter();
-//        adapter.changeCursor(newCursor);
-//        cursor = newCursor;
-//    }
-
     private void updateCursorAndListView() {
         Cursor newCursor = database.query("SHOP", new String[]{"_id", "NAME"},
                 null, null, null, null, null);
@@ -129,12 +119,9 @@ public class StoreFragment extends Fragment {
     private void deleteSelectedIngredients() {
         SparseBooleanArray chosen = ingredientsShopList.getCheckedItemPositions();
         int listSize = ingredientsShopList.getCount();
-
         for (int i = 0; i < listSize; i++) {
-//            if (chosen.valueAt(i)) {
             if (chosen.get(i)) {
-                CheckedTextView view = (CheckedTextView) ingredientsShopList.getChildAt(i);
-                String ingredientName = view.getText().toString();
+                String ingredientName = ((Cursor)ingredientsShopList.getItemAtPosition(i)).getString(cursor.getColumnIndex("NAME"));
                 database.delete("SHOP", "NAME = ?", new String[]{ingredientName});
             }
         }
