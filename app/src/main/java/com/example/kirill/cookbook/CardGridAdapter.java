@@ -48,6 +48,7 @@ public class CardGridAdapter extends BaseAdapter {
         TextView textView = (TextView) convertView.findViewById(R.id.name_info);
         imageView.setImageResource(imageResourceIds[position]);
         textView.setText(names[position]);
+
         return convertView;
     }
 }

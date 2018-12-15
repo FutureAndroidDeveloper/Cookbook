@@ -45,13 +45,17 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
                     + "INGREDIENTS TEXT,"
                     + "RECIPE TEXT,"
                     + "IMAGE_RESOURCE_ID INTEGER);");
-            
+
             insertFood(database, "Snacks", "ЩУР", "1. Влад Щур;2. Артем Каралюк;3. Вадим Аникович",
                     "1. Помыть;2. Нарезать;3. Отварить", R.drawable.test);
             insertFood(database, "Snacks", "Pasta", "1. Сергей Холдеев;2. Артем Каралюк;3. Артем Епамченко",
                     "1. Купить;2. Высушить;3. Продать", R.drawable.pasta);
             insertFood(database, "Snacks", "Pizza", "1. Влад Пушко;2. Дмитрий Костеж;3. Дмитрий Чириков",
                     "1. Украсть;2. Отмыть;3. Скурить", R.drawable.pizza);
+        }
+
+        if (oldVersion < 2) {
+            database.execSQL("ALTER TABLE FOOD ADD COLUMN FAVORITE NUMERIC");
         }
     }
 }
