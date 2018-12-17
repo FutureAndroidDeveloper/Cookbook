@@ -6,17 +6,14 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.Toast;
+import static com.example.kirill.cookbook.FoodGridHelper.*;
 
 import java.util.Random;
 
@@ -28,37 +25,15 @@ public class CategoriesFragment extends Fragment {
     public final String[] DatabaseCategories= {"Snacks", "Salads", "Main", "Desserts"};
 
     public static final int gridColumnCount = 2;
-    public int[][] categoriesIds = new int[DatabaseCategories.length][gridColumnCount];
+    public static final int gridRowCount = 4;
     public int randomId;
     private final Random random = new Random();
 
-    public int[][] images = new int[DatabaseCategories.length][gridColumnCount];;
-    public String[][] names = new String[DatabaseCategories.length][gridColumnCount];
-    public boolean wasCreated = false;
+    private SQLiteDatabase database;
+    private Cursor cursor;
 
     public CategoriesFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (savedInstanceState != null) {
-            wasCreated = savedInstanceState.getBoolean("Created");
-            Log.i("ON CREATE   ::::      ", Boolean.toString(wasCreated));
-//            setRetainInstance(true);
-
-            names[0] = savedInstanceState.getStringArray("SnackNames");
-            names[1] = savedInstanceState.getStringArray("SaladNames");
-            names[2] = savedInstanceState.getStringArray("MainNames");
-            names[3] = savedInstanceState.getStringArray("DessertNames");
-
-            images[0] = savedInstanceState.getIntArray("SnackImages");
-            images[1] = savedInstanceState.getIntArray("SaladImages");
-            images[2] = savedInstanceState.getIntArray("MainImages");
-            images[3] = savedInstanceState.getIntArray("DessertImages");
-        }
     }
 
     @Override
@@ -67,18 +42,16 @@ public class CategoriesFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_categories, container, false);
 
-        onCreate(savedInstanceState);
-
         if (!wasCreated) {
 
             // Random choice of food from BD by CATEGORY
             FoodDatabaseHelper foodDatabaseHelper = new FoodDatabaseHelper(inflater.getContext());
             try {
-                SQLiteDatabase database = foodDatabaseHelper.getReadableDatabase();
+                database = foodDatabaseHelper.getReadableDatabase();
 
-                for (int rowGrid = 0; rowGrid < DatabaseCategories.length; rowGrid++) {
+                for (int rowGrid = 0; rowGrid < gridRowCount; rowGrid++) {
                     for (int columnGrid = 0; columnGrid < gridColumnCount; columnGrid++) {
-                        Cursor cursor = getRandomCategoryRecordFromDb(database, DatabaseCategories[rowGrid]);
+                        cursor = getRandomCategoryRecordFromDb(database, DatabaseCategories[rowGrid]);
 
                         // get all needed information about food
                         if (cursor.moveToFirst()) {
@@ -88,6 +61,7 @@ public class CategoriesFragment extends Fragment {
                         }
                     }
                 }
+
                 wasCreated = true;
 
             } catch (SQLException e) {
@@ -108,13 +82,13 @@ public class CategoriesFragment extends Fragment {
         GridView gridViewDesserts = (GridView) view.findViewById(R.id.gridViewDesserts);
         gridViewDesserts.setAdapter(new CardGridAdapter(this.getContext(), names[3], images[3], R.layout.card_captioned_image));
 
+
         gridViewSnack.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getContext(), DetailActivity.class);
                 intent.putExtra(DetailActivity.EXTRA_FOOD_ID, (int) id);
-
-                startActivity(intent);
+                 startActivity(intent);
             }
         });
 
@@ -166,23 +140,12 @@ public class CategoriesFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        Log.i("HELLO : ", "OnSAVE");
-        super.onSaveInstanceState(outState);
-        outState.putBoolean("Created", wasCreated);
-        outState.putStringArray("SnackNames", names[0]);
-        outState.putStringArray("SaladNames", names[1]);
-        outState.putStringArray("MainNames", names[2]);
-        outState.putStringArray("DessertNames", names[3]);
+    public void onDestroy() {
+        super.onDestroy();
 
-        outState.putIntArray("SnackImages", images[0]);
-        outState.putIntArray("SaladImages", images[1]);
-        outState.putIntArray("MainImages", images[2]);
-        outState.putIntArray("DessertImages", images[3]);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
+        if (!(cursor == null)) {
+            cursor.close();
+            database.close();
+        }
     }
 }

@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -103,8 +104,11 @@ public class StoreFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        cursor.close();
-        database.close();
+
+        if (!(cursor == null)) {
+            cursor.close();
+            database.close();
+        }
     }
 
     private void updateCursorAndListView() {
