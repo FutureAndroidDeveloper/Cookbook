@@ -9,11 +9,26 @@
     <string name="categories_tab">Categories</string>
     <string name="favorite_tab">Favorite</string>
     <string name="shop_tab">Shop</string>
-    
+
+    <string name="ingredients_tab">Ingredients</string>
+    <string name="recipe_tab">Recipe</string>
+    <string name="rating_tab">Rating</string>
+
     <string name="snacks">Snacks</string>
     <string name="salads">Salads</string>
     <string name="main_dishes">Main dishes</string>
     <string name="desserts">Desserts</string>
     <string name="more">More</string>
+
+    <string name="delete">Delete</string>
+    <string name="products">Products</string>
+    <string name="shop_dialog_title">Delete from shopping list</string>
+    <string-array name="dialog_delete">
+        <item>Selected products</item>
+        <item>All products</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
