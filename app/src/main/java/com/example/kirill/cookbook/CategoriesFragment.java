@@ -7,7 +7,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,23 +70,27 @@ public class CategoriesFragment extends Fragment {
         }
 
         GridView gridViewSnack = (GridView) view.findViewById(R.id.gridViewSnack);
-        gridViewSnack.setAdapter(new CardGridAdapter(this.getContext(), names[0], images[0], R.layout.card_captioned_image));
+        gridViewSnack.setAdapter(new CardGridAdapter(this.getContext(), names[FIRST_GRID_INDEX],
+                images[FIRST_GRID_INDEX], R.layout.card_captioned_image));
 
         GridView gridViewSalads = (GridView) view.findViewById(R.id.gridViewSalads);
-        gridViewSalads.setAdapter(new CardGridAdapter(this.getContext(), names[1], images[1], R.layout.card_captioned_image));
+        gridViewSalads.setAdapter(new CardGridAdapter(this.getContext(), names[SECOND_GRID_INDEX],
+                images[SECOND_GRID_INDEX], R.layout.card_captioned_image));
 
         GridView gridViewDishes = (GridView) view.findViewById(R.id.gridViewDishes);
-        gridViewDishes.setAdapter(new CardGridAdapter(this.getContext(), names[2], images[2], R.layout.card_captioned_image));
+        gridViewDishes.setAdapter(new CardGridAdapter(this.getContext(), names[THIRD_GRID_INDEX],
+                images[THIRD_GRID_INDEX], R.layout.card_captioned_image));
 
         GridView gridViewDesserts = (GridView) view.findViewById(R.id.gridViewDesserts);
-        gridViewDesserts.setAdapter(new CardGridAdapter(this.getContext(), names[3], images[3], R.layout.card_captioned_image));
+        gridViewDesserts.setAdapter(new CardGridAdapter(this.getContext(), names[FOURTH_GRID_INDEX],
+                images[FOURTH_GRID_INDEX], R.layout.card_captioned_image));
 
 
         gridViewSnack.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getContext(), DetailActivity.class);
-                intent.putExtra(DetailActivity.EXTRA_FOOD_ID, categoriesIds[0][(int) id]);
+                intent.putExtra(DetailActivity.EXTRA_FOOD_ID, categoriesIds[FIRST_GRID_INDEX][(int) id]);
                 startActivity(intent);
             }
         });
@@ -96,7 +99,7 @@ public class CategoriesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getContext(), DetailActivity.class);
-                intent.putExtra(DetailActivity.EXTRA_FOOD_ID, categoriesIds[1][(int) id]);
+                intent.putExtra(DetailActivity.EXTRA_FOOD_ID, categoriesIds[SECOND_GRID_INDEX][(int) id]);
                 startActivity(intent);
             }
         });
@@ -105,7 +108,7 @@ public class CategoriesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getContext(), DetailActivity.class);
-                intent.putExtra(DetailActivity.EXTRA_FOOD_ID, categoriesIds[2][(int) id]);
+                intent.putExtra(DetailActivity.EXTRA_FOOD_ID, categoriesIds[THIRD_GRID_INDEX][(int) id]);
                 startActivity(intent);
             }
         });
@@ -114,7 +117,7 @@ public class CategoriesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getContext(), DetailActivity.class);
-                intent.putExtra(DetailActivity.EXTRA_FOOD_ID, categoriesIds[3][(int) id]);
+                intent.putExtra(DetailActivity.EXTRA_FOOD_ID, categoriesIds[FOURTH_GRID_INDEX][(int) id]);
                 startActivity(intent);
             }
         });

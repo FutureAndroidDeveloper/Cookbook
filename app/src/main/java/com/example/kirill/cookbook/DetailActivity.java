@@ -14,16 +14,15 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.Toast;
 
 
 public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_FOOD_ID = "foodId";
     public static final int DEFAULT_EXTRA_VALUE = 1;
-    private Toolbar toolbar;
-    private ViewPager pager;
-    private TabLayout tabLayout;
     private String title;
+    private int foodId;
 
     private FoodDatabaseHelper databaseHelper;
     private SQLiteDatabase database;
@@ -34,17 +33,18 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        int id = getIntent().getIntExtra(EXTRA_FOOD_ID, DEFAULT_EXTRA_VALUE);
+        foodId = getIntent().getIntExtra(EXTRA_FOOD_ID, DEFAULT_EXTRA_VALUE);
 
         databaseHelper = new FoodDatabaseHelper(this);
         try {
             database = databaseHelper.getReadableDatabase();
             cursor = database.query("FOOD",
-                    new String[]{"_id", "NAME"},
+                    new String[]{"_id", "NAME", "INGREDIENTS"},
                     "_id = ?",
-                    new String[]{Integer.toString(id)},
+                    new String[]{Integer.toString(foodId)},
                     null, null, null, null);
 
+            // get activity title
             if (cursor.moveToFirst()) {
                 title = cursor.getString(cursor.getColumnIndex("NAME"));
             }
@@ -56,7 +56,7 @@ public class DetailActivity extends AppCompatActivity {
         collapsingToolbarLayout.setTitleEnabled(false);
 
         // Set toolbar
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -64,11 +64,11 @@ public class DetailActivity extends AppCompatActivity {
 
         // Set adapter to pager
         SectionsRecipePagerAdapter pagerAdapter = new SectionsRecipePagerAdapter(getSupportFragmentManager());
-        pager = (ViewPager) findViewById(R.id.pager_recipe);
+        ViewPager pager = (ViewPager) findViewById(R.id.pager_recipe);
         pager.setAdapter(pagerAdapter);
 
         // Connect tabLayout with viewPager
-        tabLayout = (TabLayout) findViewById(R.id.tabs_recipe);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs_recipe);
         tabLayout.setupWithViewPager(pager);
     }
 
@@ -83,8 +83,15 @@ public class DetailActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-                case 0:
-                    return new IngredientsFragment();
+                case 0: {
+                    Bundle bundle = new Bundle();
+                    bundle.putStringArray(IngredientsFragment.BUNDLE_INGREDIENTS, getSplitIngredients(cursor));
+
+                    Fragment ingredientsFragment = new IngredientsFragment();
+                    ingredientsFragment.setArguments(bundle);
+
+                    return ingredientsFragment;
+                }
                 case 1:
                     return new FavoriteFragment();
                 case 2:
@@ -111,5 +118,25 @@ public class DetailActivity extends AppCompatActivity {
             }
             return null;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        
+        if (cursor != null) {
+            cursor.close();
+            database.close();
+        }
+    }
+
+    protected String[] getSplitIngredients(Cursor ingredientsCursor) {
+        String[] ingredients = {};
+
+        if (ingredientsCursor.moveToFirst()) {
+            ingredients = ingredientsCursor.getString(ingredientsCursor.getColumnIndex("INGREDIENTS")).split("; ");
+        }
+
+        return ingredients;
     }
 }

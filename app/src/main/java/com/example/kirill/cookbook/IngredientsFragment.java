@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,16 +33,26 @@ public class IngredientsFragment extends Fragment {
     LayoutInflater layoutInflater;
     public ArrayList<String> selectedItems;
     private SQLiteOpenHelper shopDatabaseHelper;
-
-
-    final String[] catNames = new String[]{"Рыжик", "Барсик", "Мурзик",
-            "Мурка", "Васька", "Томасина", "Кристина", "Пушок", "Дымка",
-            "Кузя", "Китти", "Масяня", "Симба", "Паша", "Артём"};
+    private String[] ingredients;
+    public static final String BUNDLE_INGREDIENTS = "ingredients";
 
     public IngredientsFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // get arguments from activity
+
+        Bundle args = getArguments();
+
+        if (args == null) {
+            Toast.makeText(getContext(), "arguments is null", Toast.LENGTH_SHORT).show();
+        } else {
+            ingredients = args.getStringArray(BUNDLE_INGREDIENTS);
+        }
+    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
@@ -57,7 +68,7 @@ public class IngredientsFragment extends Fragment {
         ListView ingredientsList = (ListView) view.findViewById(R.id.checkable_list);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(inflater.getContext(),
-                R.layout.ingredient_list_item, R.id.text_line, catNames);
+                R.layout.ingredient_list_item, R.id.text_line, ingredients);
         ingredientsList.setAdapter(adapter);
 
         // Load selected ingredients from database
@@ -135,7 +146,7 @@ public class IngredientsFragment extends Fragment {
             while (cursor.moveToNext()) {
                 String databaseIngredient = cursor.getString(cursor.getColumnIndex("NAME"));
 
-                for (String item : catNames) {
+                for (String item : ingredients) {
                     if (item.equals(databaseIngredient)) {
                         selectedItems.add(databaseIngredient);
                         break;
@@ -152,8 +163,8 @@ public class IngredientsFragment extends Fragment {
     private int getSelectedPosition(String ingredient) {
         int position = 0;
 
-        for (int index = 0; index < catNames.length; index++) {
-            if (catNames[index].equals(ingredient)) {
+        for (int index = 0; index < ingredients.length; index++) {
+            if (ingredients[index].equals(ingredient)) {
                 position = index;
                 break;
             }
