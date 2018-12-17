@@ -1,5 +1,9 @@
 package com.example.kirill.cookbook;
 
+import android.database.Cursor;
+
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
@@ -12,16 +16,41 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
+
 public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_FOOD_ID = "foodId";
+    public static final int DEFAULT_EXTRA_VALUE = 1;
     private Toolbar toolbar;
     private ViewPager pager;
     private TabLayout tabLayout;
+    private String title;
+
+    private FoodDatabaseHelper databaseHelper;
+    private SQLiteDatabase database;
+    private Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        int id = getIntent().getIntExtra(EXTRA_FOOD_ID, DEFAULT_EXTRA_VALUE);
+
+        databaseHelper = new FoodDatabaseHelper(this);
+        try {
+            database = databaseHelper.getReadableDatabase();
+            cursor = database.query("FOOD",
+                    new String[]{"_id", "NAME"},
+                    "_id = ?",
+                    new String[]{Integer.toString(id)},
+                    null, null, null, null);
+
+            if (cursor.moveToFirst()) {
+                title = cursor.getString(cursor.getColumnIndex("NAME"));
+            }
+        } catch (SQLException e) {
+            Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT).show();
+        }
 
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapse_toolbar);
         collapsingToolbarLayout.setTitleEnabled(false);
@@ -31,7 +60,7 @@ public class DetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("МОЙ РЕЦЕПТ");
+        getSupportActionBar().setTitle(title);
 
         // Set adapter to pager
         SectionsRecipePagerAdapter pagerAdapter = new SectionsRecipePagerAdapter(getSupportFragmentManager());

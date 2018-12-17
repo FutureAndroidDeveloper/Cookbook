@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,7 +70,6 @@ public class CategoriesFragment extends Fragment {
             }
         }
 
-
         GridView gridViewSnack = (GridView) view.findViewById(R.id.gridViewSnack);
         gridViewSnack.setAdapter(new CardGridAdapter(this.getContext(), names[0], images[0], R.layout.card_captioned_image));
 
@@ -87,8 +87,35 @@ public class CategoriesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getContext(), DetailActivity.class);
-                intent.putExtra(DetailActivity.EXTRA_FOOD_ID, (int) id);
-                 startActivity(intent);
+                intent.putExtra(DetailActivity.EXTRA_FOOD_ID, categoriesIds[0][(int) id]);
+                startActivity(intent);
+            }
+        });
+
+        gridViewSalads.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(), DetailActivity.class);
+                intent.putExtra(DetailActivity.EXTRA_FOOD_ID, categoriesIds[1][(int) id]);
+                startActivity(intent);
+            }
+        });
+
+        gridViewDishes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(), DetailActivity.class);
+                intent.putExtra(DetailActivity.EXTRA_FOOD_ID, categoriesIds[2][(int) id]);
+                startActivity(intent);
+            }
+        });
+
+        gridViewDesserts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(), DetailActivity.class);
+                intent.putExtra(DetailActivity.EXTRA_FOOD_ID, categoriesIds[3][(int) id]);
+                startActivity(intent);
             }
         });
 
