@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,12 +30,15 @@ import java.util.Set;
  * A simple {@link Fragment} subclass.
  */
 public class IngredientsFragment extends Fragment {
+    public static final String BUNDLE_INGREDIENTS = "ingredients";
+
+    private SQLiteOpenHelper shopDatabaseHelper;
     private SQLiteDatabase database;
     LayoutInflater layoutInflater;
+
     public ArrayList<String> selectedItems;
-    private SQLiteOpenHelper shopDatabaseHelper;
     private String[] ingredients;
-    public static final String BUNDLE_INGREDIENTS = "ingredients";
+
 
     public IngredientsFragment() {
         // Required empty public constructor

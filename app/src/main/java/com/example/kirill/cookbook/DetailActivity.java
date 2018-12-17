@@ -4,17 +4,21 @@ import android.database.Cursor;
 
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 
@@ -22,20 +26,21 @@ public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_FOOD_ID = "foodId";
     public static final int DEFAULT_EXTRA_VALUE = 1;
     private String title;
-    private int foodId;
 
-    private FoodDatabaseHelper databaseHelper;
     private SQLiteDatabase database;
     private Cursor cursor;
+    private FloatingActionButton floatingActionButton;
+    private boolean like = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        foodId = getIntent().getIntExtra(EXTRA_FOOD_ID, DEFAULT_EXTRA_VALUE);
+        int foodId = getIntent().getIntExtra(EXTRA_FOOD_ID, DEFAULT_EXTRA_VALUE);
 
-        databaseHelper = new FoodDatabaseHelper(this);
+        FoodDatabaseHelper databaseHelper = new FoodDatabaseHelper(this);
         try {
             database = databaseHelper.getReadableDatabase();
             cursor = database.query("FOOD",
@@ -70,6 +75,8 @@ public class DetailActivity extends AppCompatActivity {
         // Connect tabLayout with viewPager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs_recipe);
         tabLayout.setupWithViewPager(pager);
+
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.fab_like);
     }
 
     public class SectionsRecipePagerAdapter extends FragmentPagerAdapter {
@@ -118,6 +125,15 @@ public class DetailActivity extends AppCompatActivity {
             }
             return null;
         }
+    }
+
+    public void onClickLike(View view) {
+        if (like) {
+            floatingActionButton.setColorFilter(Color.argb(255, 255, 255, 255));
+        } else {
+            floatingActionButton.setColorFilter(Color.argb(255,255,0,0));
+        }
+        like = !like;
     }
 
     @Override
