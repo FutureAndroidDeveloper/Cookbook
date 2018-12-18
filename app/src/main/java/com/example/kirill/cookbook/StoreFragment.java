@@ -18,8 +18,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.CursorAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -28,9 +30,11 @@ import android.widget.Toast;
  */
 public class StoreFragment extends Fragment {
     private Cursor cursor;
-    SQLiteOpenHelper openHelper;
     private SQLiteDatabase database;
+
+    LinearLayout masterLayout;
     private ListView ingredientsShopList;
+    private TextView emptyList;
 
 
     public StoreFragment() {
@@ -47,7 +51,7 @@ public class StoreFragment extends Fragment {
         ingredientsShopList = (ListView) view.findViewById(R.id.checkable_ingredients_shop);
 
         // Create cursor
-        openHelper = new ShopDatabaseHelper(inflater.getContext());
+        ShopDatabaseHelper openHelper = new ShopDatabaseHelper(inflater.getContext());
         try {
             database = openHelper.getWritableDatabase();
             cursor = database.query("SHOP",                  // get all ingredients from DB
@@ -62,6 +66,13 @@ public class StoreFragment extends Fragment {
             ingredientsShopList.setAdapter(cursorAdapter);
         } catch (SQLException e) {
             Toast.makeText(inflater.getContext(), "Database unavailable", Toast.LENGTH_SHORT).show();
+        }
+
+        // hide hint if list not empty
+        emptyList = (TextView) view.findViewById(R.id.empty_list_hint);
+
+        if (cursor != null && ingredientsShopList.getCount() != 0) {
+            emptyList.setVisibility(View.GONE);
         }
 
         Button deleteButton = (Button) view.findViewById(R.id.delete_shop);
@@ -91,6 +102,7 @@ public class StoreFragment extends Fragment {
                             case 1: {
                                 database.delete("SHOP", null, null);
                                 updateCursorAndListView();
+                                emptyList.setVisibility(View.VISIBLE);
                                 Toast.makeText(getContext(), "The shopping list is cleared.", Toast.LENGTH_SHORT).show();
                                 break;
                             }
@@ -114,6 +126,7 @@ public class StoreFragment extends Fragment {
     private void updateCursorAndListView() {
         Cursor newCursor = database.query("SHOP", new String[]{"_id", "NAME"},
                 null, null, null, null, null);
+
         CursorAdapter adapter = (CursorAdapter) ingredientsShopList.getAdapter();
         adapter.changeCursor(newCursor);
         adapter.notifyDataSetChanged();
@@ -123,11 +136,17 @@ public class StoreFragment extends Fragment {
     private void deleteSelectedIngredients() {
         SparseBooleanArray chosen = ingredientsShopList.getCheckedItemPositions();
         int listSize = ingredientsShopList.getCount();
+
         for (int i = 0; i < listSize; i++) {
             if (chosen.get(i)) {
                 String ingredientName = ((Cursor)ingredientsShopList.getItemAtPosition(i)).getString(cursor.getColumnIndex("NAME"));
                 database.delete("SHOP", "NAME = ?", new String[]{ingredientName});
             }
+        }
+
+        // show hint if was selected last item
+        if (listSize == 1) {
+            emptyList.setVisibility(View.VISIBLE);
         }
     }
 }

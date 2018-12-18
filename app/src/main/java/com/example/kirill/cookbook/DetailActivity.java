@@ -1,5 +1,6 @@
 package com.example.kirill.cookbook;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 
 import android.database.SQLException;
@@ -29,8 +30,8 @@ public class DetailActivity extends AppCompatActivity {
 
     private SQLiteDatabase database;
     private Cursor cursor;
-    private FloatingActionButton floatingActionButton;
-    private boolean like = false;
+    private FloatingActionButton favoriteFAB;
+    private boolean isFavorite;
 
 
     @Override
@@ -39,19 +40,27 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         int foodId = getIntent().getIntExtra(EXTRA_FOOD_ID, DEFAULT_EXTRA_VALUE);
+        favoriteFAB = (FloatingActionButton) findViewById(R.id.fab_like);
 
         FoodDatabaseHelper databaseHelper = new FoodDatabaseHelper(this);
         try {
             database = databaseHelper.getReadableDatabase();
             cursor = database.query("FOOD",
-                    new String[]{"_id", "NAME", "INGREDIENTS"},
+                    null,
                     "_id = ?",
                     new String[]{Integer.toString(foodId)},
                     null, null, null, null);
 
-            // get activity title
             if (cursor.moveToFirst()) {
+                // get activity title
                 title = cursor.getString(cursor.getColumnIndex("NAME"));
+
+                // get favorite flag
+                isFavorite = cursor.getInt(cursor.getColumnIndex("FAVORITE")) == 1;
+
+                if (isFavorite) {
+                    favoriteFAB.setColorFilter(Color.argb(255,255,0,0));
+                }
             }
         } catch (SQLException e) {
             Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT).show();
@@ -75,8 +84,6 @@ public class DetailActivity extends AppCompatActivity {
         // Connect tabLayout with viewPager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs_recipe);
         tabLayout.setupWithViewPager(pager);
-
-        floatingActionButton = (FloatingActionButton) findViewById(R.id.fab_like);
     }
 
     public class SectionsRecipePagerAdapter extends FragmentPagerAdapter {
@@ -128,12 +135,28 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public void onClickLike(View view) {
-        if (like) {
-            floatingActionButton.setColorFilter(Color.argb(255, 255, 255, 255));
+        int foodId = getIntent().getIntExtra(EXTRA_FOOD_ID, DEFAULT_EXTRA_VALUE);
+        ContentValues foodValues = new ContentValues();
+
+        isFavorite = !isFavorite;
+
+        if (isFavorite) {
+            // set red color of fab
+            favoriteFAB.setColorFilter(Color.argb(255,255,0,0));
         } else {
-            floatingActionButton.setColorFilter(Color.argb(255,255,0,0));
+            // set white color of fab
+            favoriteFAB.setColorFilter(Color.argb(255, 255, 255, 255));
         }
-        like = !like;
+
+        foodValues.put("FAVORITE", isFavorite);
+
+        // update favorite food data
+        if (database != null) {
+            database.update("FOOD",
+                    foodValues,
+                    "_id = ?",
+                    new String[]{Integer.toString(foodId)});
+        }
     }
 
     @Override

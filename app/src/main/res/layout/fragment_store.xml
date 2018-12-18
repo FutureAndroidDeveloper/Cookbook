@@ -8,6 +8,7 @@
     tools:context=".StoreFragment">
 
     <LinearLayout
+        android:id="@+id/main_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -35,6 +36,13 @@
                 android:text="@string/delete"/>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/empty_list_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/empty_shop_list"/>
 
         <ListView
             android:id="@+id/checkable_ingredients_shop"

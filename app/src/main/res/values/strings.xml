@@ -6,10 +6,6 @@
     <string name="favorite_title">Favorite fragment</string>
     <string name="store_title">Store fragment</string>
 
-    <string name="categories_tab">Categories</string>
-    <string name="favorite_tab">Favorite</string>
-    <string name="shop_tab">Shop</string>
-
     <string name="ingredients_tab">Ingredients</string>
     <string name="recipe_tab">Recipe</string>
     <string name="rating_tab">Rating</string>
@@ -21,6 +17,7 @@
     <string name="more">More</string>
 
     <string name="delete">Delete</string>
+    <string name="empty_shop_list">There will be products for shopping.</string>
     <string name="products">Products</string>
     <string name="shop_dialog_title">Delete from shopping list</string>
     <string-array name="dialog_delete">
