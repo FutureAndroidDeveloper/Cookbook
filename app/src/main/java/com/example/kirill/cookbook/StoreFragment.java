@@ -32,9 +32,9 @@ public class StoreFragment extends Fragment {
     private Cursor cursor;
     private SQLiteDatabase database;
 
-    LinearLayout masterLayout;
     private ListView ingredientsShopList;
     private TextView emptyList;
+    private Button deleteButton;
 
 
     public StoreFragment() {
@@ -68,20 +68,23 @@ public class StoreFragment extends Fragment {
             Toast.makeText(inflater.getContext(), "Database unavailable", Toast.LENGTH_SHORT).show();
         }
 
-        // hide hint if list not empty
-        emptyList = (TextView) view.findViewById(R.id.empty_list_hint);
-
-        if (cursor != null && ingredientsShopList.getCount() != 0) {
-            emptyList.setVisibility(View.GONE);
-        }
-
-        Button deleteButton = (Button) view.findViewById(R.id.delete_shop);
+        deleteButton = (Button) view.findViewById(R.id.delete_shop);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDialogAlert();
             }
         });
+
+        // hide hint if list not empty
+        emptyList = (TextView) view.findViewById(R.id.empty_list_hint);
+
+        if (cursor != null && ingredientsShopList.getCount() != 0) {
+            emptyList.setVisibility(View.GONE);
+        } else {
+            // hide button if list is empty
+            deleteButton.setVisibility(View.GONE);
+        }
 
         return view;
     }
@@ -103,6 +106,7 @@ public class StoreFragment extends Fragment {
                                 database.delete("SHOP", null, null);
                                 updateCursorAndListView();
                                 emptyList.setVisibility(View.VISIBLE);
+                                deleteButton.setVisibility(View.GONE);
                                 Toast.makeText(getContext(), "The shopping list is cleared.", Toast.LENGTH_SHORT).show();
                                 break;
                             }
@@ -144,9 +148,10 @@ public class StoreFragment extends Fragment {
             }
         }
 
-        // show hint if was selected last item
+        // show hint and hide button if was selected last item
         if (listSize == 1) {
             emptyList.setVisibility(View.VISIBLE);
+            deleteButton.setVisibility(View.GONE);
         }
     }
 }
