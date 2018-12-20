@@ -10,11 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class CaptionedImagesAdapter extends
         RecyclerView.Adapter<CaptionedImagesAdapter.ViewHolder> {
 
-    private String[] captions;
-    private int[] imageIds;
+    private ArrayList<String> captions;
+    private ArrayList<Integer> imageIds;
 
     @NonNull
     @Override
@@ -30,17 +32,17 @@ public class CaptionedImagesAdapter extends
         CardView cardView = holder.cardView;
 
         ImageView imageView = (ImageView) cardView.findViewById(R.id.image_info);
-        Drawable drawable = ContextCompat.getDrawable(cardView.getContext(), imageIds[position]);
+        Drawable drawable = ContextCompat.getDrawable(cardView.getContext(), imageIds.get(position));
         imageView.setImageDrawable(drawable);
-        imageView.setContentDescription(captions[position]);
+        imageView.setContentDescription(captions.get(position));
 
         TextView textView = (TextView) cardView.findViewById(R.id.name_info);
-        textView.setText(captions[position]);
+        textView.setText(captions.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return captions.length;
+        return captions.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
@@ -53,7 +55,7 @@ public class CaptionedImagesAdapter extends
 
     }
 
-    CaptionedImagesAdapter(String[] captions, int[] imageIds) {
+    CaptionedImagesAdapter(ArrayList<String> captions, ArrayList<Integer> imageIds) {
         this.captions = captions;
         this.imageIds = imageIds;
     }

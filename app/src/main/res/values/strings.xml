@@ -17,7 +17,8 @@
     <string name="more">More</string>
 
     <string name="delete">Delete</string>
-    <string name="empty_shop_list">There will be products for shopping.</string>
+
+    <string name="empty_shop_list">Here will be products for shopping.</string>
     <string name="products">Products</string>
     <string name="shop_dialog_title">Delete from shopping list</string>
     <string-array name="dialog_delete">
@@ -25,7 +26,11 @@
         <item>All products</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="empty_favorite_recycler">Here will be your favorite recipes.</string>
+    <string name="recipes">Recipes</string>
+    <string name="favorite_dialog_title">Remove from favorites</string>
+    <string name="favorite_dialog_message">All recipes will be removed from the list</string>
+    <string name="favorite_dialog_ok">OK</string>
+    <string name="favorite_dialog_cancel">Cancel</string>
 
 </resources>
