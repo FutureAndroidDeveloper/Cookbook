@@ -17,6 +17,10 @@
     <string name="more">More</string>
 
     <string name="delete">Delete</string>
+    <string name="add_all_ingredients_button">Add all ingredients</string>
+    <string name="add_all_ingredients_toast_msg">Products added</string>
+    <string name="remove_all_ingredients_button">Remove all ingredients</string>
+    <string name="remove_all_ingredients_toast_msg">Products removed</string>
 
     <string name="empty_shop_list">Here will be products for shopping.</string>
     <string name="products">Products</string>

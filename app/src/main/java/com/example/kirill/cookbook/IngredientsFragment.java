@@ -69,9 +69,9 @@ public class IngredientsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_ingredients, container, false);
 
-        ListView ingredientsList = (ListView) view.findViewById(R.id.checkable_list);
+        final ListView ingredientsList = (ListView) view.findViewById(R.id.checkable_list);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(inflater.getContext(),
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(inflater.getContext(),
                 R.layout.ingredient_list_item, R.id.text_line, ingredients);
         ingredientsList.setAdapter(adapter);
 
@@ -95,11 +95,37 @@ public class IngredientsFragment extends Fragment {
             }
         });
 
-        Button showButton = (Button) view.findViewById(R.id.show_list);
-        showButton.setOnClickListener(new View.OnClickListener() {
+        Button selectAll = (Button) view.findViewById(R.id.select_all);
+        selectAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ; // добавить все в бд
+                for (String ingredient : ingredients) {
+                    if (!selectedItems.contains(ingredient)) {
+                        selectedItems.add(ingredient);
+                        ingredientsList.setItemChecked(getSelectedPosition(ingredient), true);
+                    }
+                }
+
+                adapter.notifyDataSetChanged();
+                Toast.makeText(getContext(), getResources().getString(R.string.add_all_ingredients_toast_msg), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Button removeAll = (Button) view.findViewById(R.id.remove_all);
+        removeAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                for (String ingredient : ingredients) {
+                    if (selectedItems.contains(ingredient)) {
+                        deleteIngredientFromDatabase(ingredient);
+                        selectedItems.remove(ingredient);
+                        ingredientsList.setItemChecked(getSelectedPosition(ingredient), false);
+                    }
+                }
+
+                adapter.notifyDataSetChanged();
+                Toast.makeText(getContext(), getResources().getString(R.string.remove_all_ingredients_toast_msg), Toast.LENGTH_SHORT).show();
             }
         });
 
