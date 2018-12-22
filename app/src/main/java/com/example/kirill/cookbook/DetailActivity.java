@@ -99,7 +99,7 @@ public class DetailActivity extends AppCompatActivity {
             switch (position) {
                 case 0: {
                     Bundle bundle = new Bundle();
-                    bundle.putStringArray(IngredientsFragment.BUNDLE_INGREDIENTS, getSplitIngredients(cursor));
+                    bundle.putStringArray(IngredientsFragment.BUNDLE_INGREDIENTS, getSplitedArray(cursor));
 
                     Fragment ingredientsFragment = new IngredientsFragment();
                     ingredientsFragment.setArguments(bundle);
@@ -169,7 +169,7 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
-    protected String[] getSplitIngredients(Cursor ingredientsCursor) {
+    protected String[] getSplitedArray(Cursor ingredientsCursor) {
         String[] ingredients = {};
 
         if (ingredientsCursor.moveToFirst()) {

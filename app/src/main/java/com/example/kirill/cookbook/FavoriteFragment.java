@@ -4,6 +4,7 @@ package com.example.kirill.cookbook;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -33,10 +34,11 @@ public class FavoriteFragment extends Fragment {
     private SQLiteDatabase database;
     private Cursor favoriteCursor;
 
+    private ArrayList<Integer> foodIds;
     private ArrayList<String> captions;
     private ArrayList<Integer> imagesIds;
 
-    RecyclerView favoriteFoodRecycler;
+    private RecyclerView favoriteFoodRecycler;
 
 
     public FavoriteFragment() {
@@ -51,6 +53,7 @@ public class FavoriteFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_favorite, container, false);
 
         favoriteFoodRecycler = (RecyclerView) view.findViewById(R.id.food_recycler);
+        foodIds = new ArrayList<>();
         captions = new ArrayList<>();
         imagesIds = new ArrayList<>();
 
@@ -65,6 +68,7 @@ public class FavoriteFragment extends Fragment {
 
             // filling lists with information
             while (favoriteCursor.moveToNext()) {
+                foodIds.add(favoriteCursor.getInt(favoriteCursor.getColumnIndex("_id")));
                 captions.add(favoriteCursor.getString(favoriteCursor.getColumnIndex("NAME")));
                 imagesIds.add(favoriteCursor.getInt(favoriteCursor.getColumnIndex("IMAGE_RESOURCE_ID")));
             }
@@ -78,6 +82,16 @@ public class FavoriteFragment extends Fragment {
             favoriteFoodRecycler.setLayoutManager(layoutManager);
 
             favoriteFoodRecycler.setNestedScrollingEnabled(false);
+
+            // set listener it cardView
+            adapter.setListener(new CaptionedImagesAdapter.Listener() {
+                @Override
+                public void onClick(int position) {
+                    Intent intent = new Intent(getActivity(), DetailActivity.class);
+                    intent.putExtra(DetailActivity.EXTRA_FOOD_ID, foodIds.get(position));
+                    getActivity().startActivity(intent);
+                }
+            });
 
         } catch (SQLException e) {
             Toast.makeText(getContext(), "Database unavailable", Toast.LENGTH_SHORT).show();
