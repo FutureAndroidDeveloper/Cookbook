@@ -13,6 +13,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 
 public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_FOOD_ID = "foodId";
+    public static final String DB_SEPARATOR = "; ";
     public static final int DEFAULT_EXTRA_VALUE = 1;
     private String title;
 
@@ -99,15 +101,24 @@ public class DetailActivity extends AppCompatActivity {
             switch (position) {
                 case 0: {
                     Bundle bundle = new Bundle();
-                    bundle.putStringArray(IngredientsFragment.BUNDLE_INGREDIENTS, getSplitedArray(cursor));
+                    bundle.putStringArray(IngredientsFragment.BUNDLE_INGREDIENTS,
+                            getSplitArray(cursor, "INGREDIENTS"));
 
                     Fragment ingredientsFragment = new IngredientsFragment();
                     ingredientsFragment.setArguments(bundle);
 
                     return ingredientsFragment;
                 }
-                case 1:
-                    return new FavoriteFragment();
+                case 1: {
+                    Bundle bundle = new Bundle();
+                    bundle.putStringArray(RecipeListFragment.BUNDLE_RECIPES,
+                            getSplitArray(cursor, "RECIPE"));
+
+                    ListFragment recipesFragment = new RecipeListFragment();
+                    recipesFragment.setArguments(bundle);
+
+                    return recipesFragment;
+                }
                 case 2:
                     return new StoreFragment();
             }
@@ -169,13 +180,14 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
-    protected String[] getSplitedArray(Cursor ingredientsCursor) {
-        String[] ingredients = {};
+    protected String[] getSplitArray(Cursor ingredientsCursor, String columnName) {
+        String[] splitArray = {};
 
         if (ingredientsCursor.moveToFirst()) {
-            ingredients = ingredientsCursor.getString(ingredientsCursor.getColumnIndex("INGREDIENTS")).split("; ");
+            splitArray = ingredientsCursor.getString(ingredientsCursor.getColumnIndex(columnName))
+                    .split(DB_SEPARATOR);
         }
 
-        return ingredients;
+        return splitArray;
     }
 }
