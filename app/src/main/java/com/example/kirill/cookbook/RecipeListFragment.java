@@ -27,6 +27,7 @@ public class RecipeListFragment extends ListFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // get arguments from activity
 
         Bundle args = getArguments();
 
@@ -37,27 +38,18 @@ public class RecipeListFragment extends ListFragment {
         }
     }
 
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//
-//        getListView().setEnabled(false);
-//        ArrayAdapter<String> adapter = new ArrayAdapter<>(inflater.getContext(),
-//                android.R.layout.simple_list_item_1, recipes);
-//
-//        setListAdapter(adapter);
-//
-//        return super.onCreateView(inflater, container, savedInstanceState);
-//    }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.recipe_list_fragment, null);
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        // добавить свой макет для рецепта, сделать его больше по высоте строки списка
+        // set my layout as row in list
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
-                android.R.layout.simple_list_item_1, recipes);
+                R.layout.list_fragment_item, recipes);
 
         setListAdapter(adapter);
         getListView().setEnabled(false);
