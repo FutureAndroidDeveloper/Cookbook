@@ -2,6 +2,7 @@ package com.example.kirill.cookbook;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -27,6 +28,8 @@ public class SearchActivity extends AppCompatActivity {
     private SearchView searchView;
     private RecyclerView foodRecycler;
     private CaptionedImagesAdapter adapter;
+    private SQLiteDatabase database;
+    private Cursor cursor;
 
     private ArrayList<Integer> foodIds;
     private ArrayList<String> captions;
@@ -50,8 +53,8 @@ public class SearchActivity extends AppCompatActivity {
 
         FoodDatabaseHelper databaseHelper = new FoodDatabaseHelper(this);
         try {
-            SQLiteDatabase database = databaseHelper.getReadableDatabase();
-            Cursor cursor = database.query("FOOD",
+            database = databaseHelper.getReadableDatabase();
+            cursor = database.query("FOOD",
                     new String[]{"_id", "NAME", "IMAGE_RESOURCE_ID"},
                     null, null, null,
                     null, null, null);
@@ -62,7 +65,7 @@ public class SearchActivity extends AppCompatActivity {
                 imagesIds.add(cursor.getInt(cursor.getColumnIndex("IMAGE_RESOURCE_ID")));
             }
 
-            adapter = new CaptionedImagesAdapter(captions, imagesIds);
+            adapter = new CaptionedImagesAdapter(captions, imagesIds, foodIds);
             foodRecycler.setAdapter(adapter);
 
             // set layoutManager
@@ -70,8 +73,17 @@ public class SearchActivity extends AppCompatActivity {
                     RECYCLER_COLUMN_COUNT, GridLayoutManager.VERTICAL, false);
             foodRecycler.setLayoutManager(layoutManager);
 
+            // set listener in cardView
+            adapter.setListener(new CaptionedImagesAdapter.Listener() {
+                @Override
+                public void onClick(int id) {
+                    Intent intent = new Intent(SearchActivity.this, DetailActivity.class);
+                    intent.putExtra(DetailActivity.EXTRA_FOOD_ID, id);
+                    startActivity(intent);
+                }
+            });
+
             cursor.close();
-            database.close();
         } catch (SQLException e) {
             Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT).show();
         }
@@ -98,22 +110,36 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 newText = newText.toLowerCase();
+
                 ArrayList<String> newCaptions = new ArrayList<>();
                 ArrayList<Integer> newImageIds = new ArrayList<>();
+                ArrayList<Integer> newFoodIds = new ArrayList<>();
 
                 for (String caption: captions) {
                     if (caption.toLowerCase().contains(newText)) {
                         newCaptions.add(caption);
                         newImageIds.add(imagesIds.get(captions.indexOf(caption)));
+                        newFoodIds.add(foodIds.get(captions.indexOf(caption)));
                     }
                 }
 
-                adapter.setSearchOperation(newCaptions, newImageIds);
+                adapter.setSearchOperation(newCaptions, newImageIds, newFoodIds);
 
                 return false;
             }
         });
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (cursor != null) {
+            cursor.close();
+        } else if (database != null) {
+            database.close();
+        }
     }
 }

@@ -173,8 +173,9 @@ public class CategoriesFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
 
-        if (!(cursor == null)) {
+        if (cursor != null) {
             cursor.close();
+        } else if (database != null) {
             database.close();
         }
     }

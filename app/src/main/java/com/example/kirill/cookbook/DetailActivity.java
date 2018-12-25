@@ -176,6 +176,7 @@ public class DetailActivity extends AppCompatActivity {
         
         if (cursor != null) {
             cursor.close();
+        } else if (database != null) {
             database.close();
         }
     }

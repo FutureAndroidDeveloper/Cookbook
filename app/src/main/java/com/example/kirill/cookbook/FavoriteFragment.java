@@ -73,7 +73,7 @@ public class FavoriteFragment extends Fragment {
                 imagesIds.add(favoriteCursor.getInt(favoriteCursor.getColumnIndex("IMAGE_RESOURCE_ID")));
             }
 
-            CaptionedImagesAdapter adapter = new CaptionedImagesAdapter(captions, imagesIds);
+            CaptionedImagesAdapter adapter = new CaptionedImagesAdapter(captions, imagesIds, foodIds);
             favoriteFoodRecycler.setAdapter(adapter);
 
             // set layoutManager
@@ -83,12 +83,12 @@ public class FavoriteFragment extends Fragment {
 
             favoriteFoodRecycler.setNestedScrollingEnabled(false);
 
-            // set listener it cardView
+            // set listener in cardView
             adapter.setListener(new CaptionedImagesAdapter.Listener() {
                 @Override
-                public void onClick(int position) {
+                public void onClick(int id) {
                     Intent intent = new Intent(getActivity(), DetailActivity.class);
-                    intent.putExtra(DetailActivity.EXTRA_FOOD_ID, foodIds.get(position));
+                    intent.putExtra(DetailActivity.EXTRA_FOOD_ID, id);
                     getActivity().startActivity(intent);
                 }
             });
@@ -170,8 +170,9 @@ public class FavoriteFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (!(favoriteCursor == null)) {
+        if (favoriteCursor != null) {
             favoriteCursor.close();
+        } else if (database != null) {
             database.close();
         }
     }

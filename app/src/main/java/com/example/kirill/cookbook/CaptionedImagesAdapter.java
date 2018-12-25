@@ -18,10 +18,12 @@ public class CaptionedImagesAdapter extends
 
     private ArrayList<String> captions;
     private ArrayList<Integer> imageIds;
+    private ArrayList<Integer> foodIds;
+
     private Listener listener;
 
     interface Listener {
-        public void onClick(int position);
+        public void onClick(int id);
     }
 
     public void setListener(Listener listener) {
@@ -39,7 +41,8 @@ public class CaptionedImagesAdapter extends
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        CardView cardView = holder.cardView;
+        final CardView cardView = holder.cardView;
+
 
         ImageView imageView = (ImageView) cardView.findViewById(R.id.image_info);
         Drawable drawable = ContextCompat.getDrawable(cardView.getContext(), imageIds.get(position));
@@ -49,11 +52,12 @@ public class CaptionedImagesAdapter extends
         TextView textView = (TextView) cardView.findViewById(R.id.name_info);
         textView.setText(captions.get(position));
 
+
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listener != null) {
-                    listener.onClick(position);
+                    listener.onClick(foodIds.get(position));
                 }
             }
         });
@@ -71,20 +75,24 @@ public class CaptionedImagesAdapter extends
             super(cardView);
             this.cardView = cardView;
         }
-
     }
 
-    CaptionedImagesAdapter(ArrayList<String> captions, ArrayList<Integer> imageIds) {
+    CaptionedImagesAdapter(ArrayList<String> captions, ArrayList<Integer> imageIds,
+                           ArrayList<Integer> foodIds) {
+        this.foodIds = foodIds;
         this.captions = captions;
         this.imageIds = imageIds;
     }
 
-    public void setSearchOperation(ArrayList<String> newCaptions, ArrayList<Integer> newImageIds) {
+    public void setSearchOperation(ArrayList<String> newCaptions, ArrayList<Integer> newImageIds,
+                                   ArrayList<Integer> newFoodIds) {
         captions = new ArrayList<>();
         imageIds = new ArrayList<>();
+        foodIds = new ArrayList<>();
 
         captions.addAll(newCaptions);
         imageIds.addAll(newImageIds);
+        foodIds.addAll(newFoodIds);
 
         notifyDataSetChanged();
     }
