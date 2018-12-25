@@ -10,6 +10,7 @@
     <string name="recipe_tab">Recipe</string>
     <string name="rating_tab">Rating</string>
 
+    <string name="search_hint">Search by dish name</string>
     <string name="snacks">Snacks</string>
     <string name="salads">Salads</string>
     <string name="main_dishes">Main dishes</string>

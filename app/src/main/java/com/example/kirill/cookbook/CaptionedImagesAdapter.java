@@ -78,4 +78,14 @@ public class CaptionedImagesAdapter extends
         this.captions = captions;
         this.imageIds = imageIds;
     }
+
+    public void setSearchOperation(ArrayList<String> newCaptions, ArrayList<Integer> newImageIds) {
+        captions = new ArrayList<>();
+        imageIds = new ArrayList<>();
+
+        captions.addAll(newCaptions);
+        imageIds.addAll(newImageIds);
+
+        notifyDataSetChanged();
+    }
 }
