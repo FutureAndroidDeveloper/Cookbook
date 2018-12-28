@@ -40,5 +40,8 @@
     <string name="favorite_dialog_cancel">Cancel</string>
 
     <string name="empty_list_text">Empty list!</string>
+    <string name="action_share">Share</string>
+
+    <string name="share_text">Find your favorite dishes, learn how to cook a variety of food. Share recipes with your friends.</string>
 
 </resources>
