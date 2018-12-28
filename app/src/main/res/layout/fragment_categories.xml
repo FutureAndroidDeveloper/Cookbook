@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CategoriesFragment">
+    tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,7 +30,8 @@
                 android:id="@+id/snack_more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/more" />
+                android:text="@string/more"
+                android:onClick="onClickMore"/>
         </LinearLayout>
 
         <GridView
@@ -67,7 +68,8 @@
                 android:id="@+id/salads_more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/more" />
+                android:text="@string/more"
+                android:onClick="onClickMore"/>
         </LinearLayout>
 
         <GridView
@@ -104,7 +106,8 @@
                 android:id="@+id/dishes_more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/more" />
+                android:text="@string/more"
+                android:onClick="onClickMore"/>
         </LinearLayout>
 
         <GridView
@@ -141,7 +144,8 @@
                 android:id="@+id/desserts_more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/more" />
+                android:text="@string/more"
+                android:onClick="onClickMore"/>
         </LinearLayout>
 
         <GridView
