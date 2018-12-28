@@ -128,15 +128,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setShareActionIntent(String text) {
-//        Uri image = Uri.parse("android.resource://" + getPackageName()
-//                + "/drawable/" + "a");
         Intent intent = new Intent(Intent.ACTION_SEND);
-//
-//        intent.setAction(Intent.ACTION_SEND);
-//        intent.putExtra(Intent.EXTRA_TEXT, "Text");
-//        intent.putExtra(Intent.EXTRA_STREAM, image);
-//        intent.setType("image/png");
-//        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_TEXT, text);
         shareActionProvider.setShareIntent(intent);

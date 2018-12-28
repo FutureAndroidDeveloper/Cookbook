@@ -1,11 +1,14 @@
 package com.example.kirill.cookbook;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -14,13 +17,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.ListFragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
@@ -28,12 +36,16 @@ public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_FOOD_ID = "foodId";
     public static final String DB_SEPARATOR = "; ";
     public static final int DEFAULT_EXTRA_VALUE = 1;
+
     private String title;
+    private int image;
 
     private SQLiteDatabase database;
     private Cursor cursor;
     private FloatingActionButton favoriteFAB;
     private boolean isFavorite;
+
+    private ShareActionProvider shareActionProvider;
 
 
     @Override
@@ -56,6 +68,9 @@ public class DetailActivity extends AppCompatActivity {
             if (cursor.moveToFirst()) {
                 // get activity title
                 title = cursor.getString(cursor.getColumnIndex("NAME"));
+
+                // get activity image
+                image = cursor.getInt(cursor.getColumnIndex("IMAGE_RESOURCE_ID"));
 
                 // get favorite flag
                 isFavorite = cursor.getInt(cursor.getColumnIndex("FAVORITE")) == 1;
@@ -86,6 +101,10 @@ public class DetailActivity extends AppCompatActivity {
         // Connect tabLayout with viewPager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs_recipe);
         tabLayout.setupWithViewPager(pager);
+
+        // Set image
+        ImageView imageView = (ImageView) findViewById(R.id.image_info);
+        imageView.setImageResource(image);
     }
 
     public class SectionsRecipePagerAdapter extends FragmentPagerAdapter {
@@ -190,5 +209,33 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         return splitArray;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_item_share_recipe, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.action_share_recipe);
+        shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
+        setShareActionIntent();
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    private void setShareActionIntent() {
+        String imagePath = this.getResources().getResourceName(image);
+        String imageName = imagePath.substring(imagePath.lastIndexOf("/") + 1); // get last word of path
+
+        Uri imageUri = Uri.parse("android.resource://" + getPackageName()
+                + "/drawable/" + imageName);
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setAction(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_TEXT, title);
+        intent.putExtra(Intent.EXTRA_STREAM, imageUri);
+        intent.setType("image/png");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+        shareActionProvider.setShareIntent(intent);
     }
 }

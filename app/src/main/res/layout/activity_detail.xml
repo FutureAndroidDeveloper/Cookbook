@@ -24,11 +24,11 @@
             app:contentScrim="@color/colorPrimary">
 
             <ImageView
+                android:id="@+id/image_info"
                 android:layout_width="match_parent"
                 android:layout_height="280dp"
                 android:scaleType="centerCrop"
                 android:fitsSystemWindows="true"
-                android:src="@drawable/linguine"
                 app:layout_collapseMode="parallax" />
 
             <android.support.v7.widget.Toolbar

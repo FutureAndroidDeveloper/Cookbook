@@ -99,7 +99,7 @@ public class StoreFragment extends Fragment {
                             case 0: {
                                 deleteSelectedIngredients();
                                 updateCursorAndListView();
-                                Toast.makeText(getContext(), "DELETED SELECTED", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), getString(R.string.delete_selected), Toast.LENGTH_SHORT).show();
                                 break;
                             }
                             case 1: {
@@ -107,7 +107,7 @@ public class StoreFragment extends Fragment {
                                 updateCursorAndListView();
                                 emptyList.setVisibility(View.VISIBLE);
                                 deleteButton.setVisibility(View.GONE);
-                                Toast.makeText(getContext(), "The shopping list is cleared.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), getString(R.string.clear_shopping_list), Toast.LENGTH_SHORT).show();
                                 break;
                             }
                         }
