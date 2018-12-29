@@ -6,9 +6,12 @@ public class FoodGridHelper {
     public static final int THIRD_GRID_INDEX = 2;
     public static final int FOURTH_GRID_INDEX = 3;
 
+    public static final int GRID_COLUMN_COUNT = 2;
+    public static final int GRID_ROW_COUNT = 4;
+
     public static boolean wasCreated = false;
 
-    public static int[][] images = new int[CategoriesFragment.gridRowCount][CategoriesFragment.gridColumnCount];
-    public static String[][] names = new String[CategoriesFragment.gridRowCount][CategoriesFragment.gridColumnCount];
-    public static int[][] categoriesIds = new int[CategoriesFragment.gridRowCount][CategoriesFragment.gridColumnCount];
+    public static int[][] images = new int[GRID_ROW_COUNT][GRID_COLUMN_COUNT];
+    public static String[][] names = new String[GRID_ROW_COUNT][GRID_COLUMN_COUNT];
+    public static int[][] categoriesIds = new int[GRID_ROW_COUNT][GRID_COLUMN_COUNT];
 }

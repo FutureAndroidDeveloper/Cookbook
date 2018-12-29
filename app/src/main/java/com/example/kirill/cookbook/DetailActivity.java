@@ -137,7 +137,6 @@ public class DetailActivity extends AppCompatActivity {
 
     public void onClickLike(View view) {
         int foodId = getIntent().getIntExtra(EXTRA_FOOD_ID, DEFAULT_EXTRA_VALUE);
-        ContentValues foodValues = new ContentValues();
 
         isFavorite = !isFavorite;
 
@@ -149,15 +148,7 @@ public class DetailActivity extends AppCompatActivity {
             favoriteFAB.setColorFilter(Color.argb(255, 255, 255, 255));
         }
 
-        foodValues.put("FAVORITE", isFavorite);
-
-        // update favorite food data
-        if (database != null) {
-            database.update("FOOD",
-                    foodValues,
-                    "_id = ?",
-                    new String[]{Integer.toString(foodId)});
-        }
+        new UpdateFavoriteFoodTask().execute(foodId);
     }
 
     @Override
@@ -249,6 +240,35 @@ public class DetailActivity extends AppCompatActivity {
                     favoriteFAB.setColorFilter(Color.argb(255,255,0,0));
                 }
             } else {
+                Toast.makeText(DetailActivity.this, getString(R.string.db_error),
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private class UpdateFavoriteFoodTask extends AsyncTask<Integer, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Integer... foods) {
+            int foodId = foods[0];
+            ContentValues foodValues = new ContentValues();
+            foodValues.put("FAVORITE", isFavorite);
+
+
+            // update favorite food data
+            if (database != null) {
+                database.update("FOOD",
+                        foodValues,
+                        "_id = ?",
+                        new String[]{Integer.toString(foodId)});
+
+                return true;
+            } else
+                return false;
+        }
+
+        protected void onPostExecute(Boolean success) {
+            if (!success) {
                 Toast.makeText(DetailActivity.this, getString(R.string.db_error),
                         Toast.LENGTH_SHORT).show();
             }
