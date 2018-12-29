@@ -1,2 +1,2 @@
 # Cookbook
-![alt text](https://imgur.com/gallery/qgxekii)
+![alt text](https://i.imgur.com/OQAMF1q.jpg)
