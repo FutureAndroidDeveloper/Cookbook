@@ -6,11 +6,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.ActionBar;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -19,14 +18,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import javax.net.ssl.SSLException;
 
 public class SearchActivity extends AppCompatActivity {
     public static final int RECYCLER_COLUMN_COUNT = 2;
 
-    private Toolbar toolbar;
-    private SearchView searchView;
-    private RecyclerView foodRecycler;
     private CaptionedImagesAdapter adapter;
     private SQLiteDatabase database;
     private Cursor cursor;
@@ -40,7 +35,8 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        // set toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -49,45 +45,7 @@ public class SearchActivity extends AppCompatActivity {
         captions = new ArrayList<>();
         imagesIds = new ArrayList<>();
 
-        foodRecycler = (RecyclerView) findViewById(R.id.food_recycler);
-
-        FoodDatabaseHelper databaseHelper = new FoodDatabaseHelper(this);
-        try {
-            database = databaseHelper.getReadableDatabase();
-            cursor = database.query("FOOD",
-                    new String[]{"_id", "NAME", "IMAGE_RESOURCE_ID"},
-                    null, null, null,
-                    null, null, null);
-
-            while (cursor.moveToNext()) {
-                foodIds.add(cursor.getInt(cursor.getColumnIndex("_id")));
-                captions.add(cursor.getString(cursor.getColumnIndex("NAME")));
-                imagesIds.add(cursor.getInt(cursor.getColumnIndex("IMAGE_RESOURCE_ID")));
-            }
-
-            adapter = new CaptionedImagesAdapter(captions, imagesIds, foodIds);
-            foodRecycler.setAdapter(adapter);
-
-            // set layoutManager
-            GridLayoutManager layoutManager = new GridLayoutManager(this,
-                    RECYCLER_COLUMN_COUNT, GridLayoutManager.VERTICAL, false);
-            foodRecycler.setLayoutManager(layoutManager);
-
-            // set listener in cardView
-            adapter.setListener(new CaptionedImagesAdapter.Listener() {
-                @Override
-                public void onClick(int id) {
-                    Intent intent = new Intent(SearchActivity.this, DetailActivity.class);
-                    intent.putExtra(DetailActivity.EXTRA_FOOD_ID, id);
-                    startActivity(intent);
-                }
-            });
-
-            cursor.close();
-        } catch (SQLException e) {
-            Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT).show();
-        }
-
+        new FillCardTask().execute();
     }
 
     @Override
@@ -95,7 +53,7 @@ public class SearchActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_item_search, menu);
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
 
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setMaxWidth(Integer.MAX_VALUE);
@@ -140,6 +98,65 @@ public class SearchActivity extends AppCompatActivity {
             cursor.close();
         } else if (database != null) {
             database.close();
+        }
+    }
+
+    // class for async task with database
+    private class FillCardTask extends AsyncTask<Void, Void, Boolean> {
+        private RecyclerView foodRecycler;
+
+        @Override
+        protected void onPreExecute() {
+            foodRecycler = (RecyclerView) findViewById(R.id.food_recycler);
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            FoodDatabaseHelper databaseHelper = new FoodDatabaseHelper(SearchActivity.this);
+            try {
+                database = databaseHelper.getReadableDatabase();
+                cursor = database.query("FOOD",
+                        new String[]{"_id", "NAME", "IMAGE_RESOURCE_ID"},
+                        null, null, null,
+                        null, null, null);
+
+                while (cursor.moveToNext()) {
+                    foodIds.add(cursor.getInt(cursor.getColumnIndex("_id")));
+                    captions.add(cursor.getString(cursor.getColumnIndex("NAME")));
+                    imagesIds.add(cursor.getInt(cursor.getColumnIndex("IMAGE_RESOURCE_ID")));
+                }
+
+                adapter = new CaptionedImagesAdapter(captions, imagesIds, foodIds);
+                foodRecycler.setAdapter(adapter);
+
+                // set layoutManager
+                GridLayoutManager layoutManager = new GridLayoutManager(SearchActivity.this,
+                        RECYCLER_COLUMN_COUNT, GridLayoutManager.VERTICAL, false);
+                foodRecycler.setLayoutManager(layoutManager);
+
+                // set listener in cardView
+                adapter.setListener(new CaptionedImagesAdapter.Listener() {
+                    @Override
+                    public void onClick(int id) {
+                        Intent intent = new Intent(SearchActivity.this, DetailActivity.class);
+                        intent.putExtra(DetailActivity.EXTRA_FOOD_ID, id);
+                        startActivity(intent);
+                    }
+                });
+
+                cursor.close();
+                database.close();
+                return true;
+            } catch (SQLException e) {
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            if (!success) {
+                Toast.makeText(SearchActivity.this, getString(R.string.db_error), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

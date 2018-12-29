@@ -47,4 +47,6 @@
 
     <string name="share_text">Find your favorite dishes, learn how to cook a variety of food. Share recipes with your friends.</string>
 
+    <string name="db_error">Database unavailable</string>
+
 </resources>

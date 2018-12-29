@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -19,12 +18,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.ListFragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,12 +36,12 @@ public class DetailActivity extends AppCompatActivity {
 
     private String title;
     private int image;
+    private boolean isFavorite;
 
     private SQLiteDatabase database;
     private Cursor cursor;
-    private FloatingActionButton favoriteFAB;
-    private boolean isFavorite;
 
+    private FloatingActionButton favoriteFAB;
     private ShareActionProvider shareActionProvider;
 
 
