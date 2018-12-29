@@ -8,6 +8,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -53,32 +54,7 @@ public class DetailActivity extends AppCompatActivity {
         int foodId = getIntent().getIntExtra(EXTRA_FOOD_ID, DEFAULT_EXTRA_VALUE);
         favoriteFAB = (FloatingActionButton) findViewById(R.id.fab_like);
 
-        FoodDatabaseHelper databaseHelper = new FoodDatabaseHelper(this);
-        try {
-            database = databaseHelper.getReadableDatabase();
-            cursor = database.query("FOOD",
-                    null,
-                    "_id = ?",
-                    new String[]{Integer.toString(foodId)},
-                    null, null, null, null);
-
-            if (cursor.moveToFirst()) {
-                // get activity title
-                title = cursor.getString(cursor.getColumnIndex("NAME"));
-
-                // get activity image
-                image = cursor.getInt(cursor.getColumnIndex("IMAGE_RESOURCE_ID"));
-
-                // get favorite flag
-                isFavorite = cursor.getInt(cursor.getColumnIndex("FAVORITE")) == 1;
-
-                if (isFavorite) {
-                    favoriteFAB.setColorFilter(Color.argb(255,255,0,0));
-                }
-            }
-        } catch (SQLException e) {
-            Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT).show();
-        }
+        new FillStartInfoTask().execute(foodId);
 
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapse_toolbar);
         collapsingToolbarLayout.setTitleEnabled(false);
@@ -105,7 +81,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public class SectionsRecipePagerAdapter extends FragmentPagerAdapter {
-        public static final int SECTIONS_COUNT = 3;
+        public static final int SECTIONS_COUNT = 2;
 
 
         public SectionsRecipePagerAdapter(FragmentManager fm) {
@@ -135,9 +111,8 @@ public class DetailActivity extends AppCompatActivity {
 
                     return recipesFragment;
                 }
-                case 2:
-                    return new StoreFragment();
             }
+
             return null;
         }
 
@@ -154,9 +129,8 @@ public class DetailActivity extends AppCompatActivity {
                     return getResources().getText(R.string.ingredients_tab);
                 case 1:
                     return getResources().getText(R.string.recipe_tab);
-                case 2:
-                    return getResources().getText(R.string.rating_tab);
             }
+
             return null;
         }
     }
@@ -234,5 +208,50 @@ public class DetailActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
         shareActionProvider.setShareIntent(intent);
+    }
+
+    private class FillStartInfoTask extends AsyncTask<Integer, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Integer... foods) {
+            int foodId = foods[0];
+
+            FoodDatabaseHelper databaseHelper = new FoodDatabaseHelper(DetailActivity.this);
+            try {
+                database = databaseHelper.getReadableDatabase();
+                cursor = database.query("FOOD",
+                        null,
+                        "_id = ?",
+                        new String[]{Integer.toString(foodId)},
+                        null, null, null, null);
+
+                if (cursor.moveToFirst()) {
+                    // get activity title
+                    title = cursor.getString(cursor.getColumnIndex("NAME"));
+
+                    // get activity image
+                    image = cursor.getInt(cursor.getColumnIndex("IMAGE_RESOURCE_ID"));
+
+                    // get favorite flag
+                    isFavorite = cursor.getInt(cursor.getColumnIndex("FAVORITE")) == 1;
+                }
+
+                return true;
+            } catch (SQLException e) {
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            if (success) {
+                if (isFavorite) {
+                    favoriteFAB.setColorFilter(Color.argb(255,255,0,0));
+                }
+            } else {
+                Toast.makeText(DetailActivity.this, getString(R.string.db_error),
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

@@ -9,7 +9,6 @@
 
     <string name="ingredients_tab">Ingredients</string>
     <string name="recipe_tab">Recipe</string>
-    <string name="rating_tab">Rating</string>
 
     <string name="search_hint">Search by dish name</string>
     <string name="snacks">Snacks</string>
