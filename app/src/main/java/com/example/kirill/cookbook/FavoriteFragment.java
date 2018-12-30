@@ -94,7 +94,8 @@ public class FavoriteFragment extends Fragment {
             });
 
         } catch (SQLException e) {
-            Toast.makeText(getContext(), "Database unavailable", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.favorite_was_removed_toast),
+                    Toast.LENGTH_SHORT).show();
         }
 
         Button deleteButton = (Button) view.findViewById(R.id.delete_favorite);

@@ -37,6 +37,7 @@
     <string name="recipes">Recipes</string>
     <string name="favorite_dialog_title">Remove from favorites</string>
     <string name="favorite_dialog_message">All recipes will be removed from the list</string>
+    <string name="favorite_was_removed_toast">Deleted all</string>
     <string name="favorite_dialog_ok">OK</string>
     <string name="favorite_dialog_cancel">Cancel</string>
 

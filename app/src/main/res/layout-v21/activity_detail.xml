@@ -68,7 +68,6 @@
         android:layout_margin="16dp"
         app:fabSize="normal"
         android:src="@drawable/ic_like"
-        android:backgroundTint="@color/colorPrimary"
         app:layout_anchor="@+id/app_bar_layout"
         app:layout_anchorGravity="right|center"
         app:pressedTranslationZ="12dp"
