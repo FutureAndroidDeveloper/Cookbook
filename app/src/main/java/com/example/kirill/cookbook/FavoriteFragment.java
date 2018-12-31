@@ -94,7 +94,7 @@ public class FavoriteFragment extends Fragment {
             });
 
         } catch (SQLException e) {
-            Toast.makeText(getContext(), getString(R.string.favorite_was_removed_toast),
+            Toast.makeText(getContext(), getString(R.string.db_error),
                     Toast.LENGTH_SHORT).show();
         }
 
@@ -130,7 +130,7 @@ public class FavoriteFragment extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 deleteFavorite();
                 updateFavoriteCursor();
-                Toast.makeText(getContext(), "DELETED ALL", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.favorite_was_removed_toast), Toast.LENGTH_SHORT).show();
             }
         });
         builder.setNegativeButton(getResources().getString(R.string.favorite_dialog_cancel), null);

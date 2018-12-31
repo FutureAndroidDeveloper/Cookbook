@@ -59,13 +59,6 @@ public class DetailActivity extends AppCompatActivity {
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapse_toolbar);
         collapsingToolbarLayout.setTitleEnabled(false);
 
-        // Set toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(title);
-
         // Set adapter to pager
         SectionsRecipePagerAdapter pagerAdapter = new SectionsRecipePagerAdapter(getSupportFragmentManager());
         ViewPager pager = (ViewPager) findViewById(R.id.pager_recipe);
@@ -78,6 +71,15 @@ public class DetailActivity extends AppCompatActivity {
         // Set image
         ImageView imageView = (ImageView) findViewById(R.id.image_info);
         imageView.setImageResource(image);
+
+        // Set toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(title);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle(title);
+        getSupportActionBar().setTitle(title);
     }
 
     public class SectionsRecipePagerAdapter extends FragmentPagerAdapter {

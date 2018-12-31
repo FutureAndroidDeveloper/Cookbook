@@ -52,6 +52,6 @@ public class RecipeListFragment extends ListFragment {
                 R.layout.list_fragment_item, recipes);
 
         setListAdapter(adapter);
-        getListView().setEnabled(false);
+//        getListView().setEnabled(true);
     }
 }
