@@ -238,30 +238,357 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
 
                     R.drawable.drunken_broad_bean);
 
-            insertFood(database, "Salads", "Окси", "останусь; если; так",
-                    "1. надо; 2. бездыханным; 3. останусь", R.drawable.c);
-            insertFood(database, "Salads", "Рики", "не; говори; что",
-                    "1. я; 2. не; 3. могу", R.drawable.d);
+            insertFood(database, "Salads", "Italian spring bean salad",
+                    "1 stick of celery , (60g); " +
+                            "½ a carrot , (60g); " +
+                            "120 g radicchio; " +
+                            "10 g fresh basil; " +
+                            "1½ x 400 g tin of beans , such as borlotti or kidney; " +
+                            "1 tablespoon chopped onion; " +
+                            "130 ml extra virgin olive oil; " +
+                            "80 ml white wine vinegar; " +
+                            "75 g Parmesan rinds , (about 3); " +
+                            "100 g stale bread",
+
+                    "1. Trim the celery, peel and trim the carrot, then cut, along with" +
+                            " the radicchio, into 5mm cubes. Pick and finely chop the basil leaves.; " +
+                            "2. Drain and rinse the beans and place in a bowl (save the remainder" +
+                            " for another dish) with the radicchio, celery, carrot, onion and" +
+                            " basil. Stir in the olive oil and vinegar, then season and leave " +
+                            "to rest for 2 hours at room temperature.; " +
+                            "3. Meanwhile, place the Parmesan rinds in a pot with 1.5 litres " +
+                            "of cold water and cook slowly over a low–medium for 1 hour." +
+                            " Remove from the heat and leave the rinds in the water to cool.; " +
+                            "4. Preheat the oven to 200ºC/400ºF/gas 6.; " +
+                            "5. Cut the bread into 1cm cubes, scatter over a baking tray and" +
+                            " toast in the oven until golden, about 20 minutes, tossing halfway through.; " +
+                            "6. Divide the bean mixture between plates, then add a few " +
+                            "tablespoons of the cooled parmesan broth. Garnish with croutons" +
+                            " and the Parmesan rinds, finely sliced with a speed-peeler, if you like.",
+
+                    R.drawable.italian_spring_bean_salad);
+
+            insertFood(database, "Salads", "Beetroot, carrot & orange salad",
+                    "750 g carrots; " +
+                            "500 g raw beetroot; " +
+                            "olive oil; " +
+                            "2 oranges; " +
+                            "1 tablespoon sesame seeds; " +
+                            "½ a bunch of fresh coriander; " +
+                            "extra virgin olive oil",
+
+                    "1. Preheat the oven to 200°C/400ºF/gas 6; " +
+                            "2. Trim, peel and halve the carrots, then scrub the beets clean," +
+                            " and chop into wedges.; " +
+                            "3. Parboil the carrots in a large pan of boiling salted water for" +
+                            " 5 minutes, then transfer them to a colander using a slotted spoon.; " +
+                            "4. Carefully lower in the beets and parboil for 5 minutes," +
+                            " then drain (parboiling separately will stop the carrots from" +
+                            " turning purple).; " +
+                            "5. Transfer the carrots and beets to a large roasting tin, " +
+                            "drizzle with olive oil and season with sea salt and black pepper." +
+                            " Roast for 30 to 40 minutes, or until sticky and shiny, jiggling" +
+                            " the tray occasionally for even cooking.; " +
+                            "6. Meanwhile, finely grate the orange zest. Trim off" +
+                            " the skin and pith, then cut the orange into segments.; " +
+                            "7. Toast the sesame seeds in a dry pan on a low heat for a couple" +
+                            " of minutes or until golden, tossing regularly. Pick and roughly" +
+                            " chop the coriander leaves.; " +
+                            "8. When the time's up, let the roasted veg cool a little, " +
+                            "then toss with the orange zest and segments, a good lug of extra" +
+                            " virgin olive oil and a little extra seasoning, if needed.; " +
+                            "9. Arrange over a large platter, scatter over the toasted sesame" +
+                            " seeds and coriander leaves, then tuck in.",
+
+                    R.drawable.beetroot_orange_salad);
 
 
-            insertFood(database, "Main", "баста", "я; долго; искал",
-                    "1. свой; 2. путь; 3. стиль", R.drawable.e);
-            insertFood(database, "Main", "каста", "потратил; тут; столько",
-                    "1. сил; 2. чтобы; 3. мой", R.drawable.f);
-            insertFood(database, "Main", "гнойный", "мир; меня; простил",
-                    "1. я; 2. свеж; 3. и", R.drawable.g);
-            insertFood(database, "Main", "мармиладный", "молод; пока; я",
-                    "1. продал; 2. дух; 3. с молотка", R.drawable.h);
 
 
-            insertFood(database, "Desserts", "ЩУР2", "Где же; начало; пути",
-                    "1. найти; 2. я; 3. понимаю", R.drawable.w);
-            insertFood(database, "Desserts", "Pasta2", "улицы; тупо; нигеру",
-                    "1. вырвали; 2. сердце; 3. Около", R.drawable.x);
-            insertFood(database, "Desserts", "Pizza2", "часа; вдыхаю; дым",
-                    "1. в; 2. эту; 3. бездну", R.drawable.y);
-            insertFood(database, "Desserts", "Soup2", "бесталанный; soundboy; DJ",
-                    "1. Будто; 2. рукав; 3. не пришей", R.drawable.z);
+
+            insertFood(database, "Main", "Mark Hamill's roast sirloin & Yorkshire puddings",
+                    "4 large free-range eggs; " +
+                            "150 g plain flour; " +
+                            "175 ml whole milk; " +
+                            "50 g beef dripping; " +
+                            "2 kg beef bones , with bone marrow; " +
+                            "2 large leeks; " +
+                            "2 red onions; " +
+                            "2 heaped tablespoons plain flour; " +
+                            "100 ml red wine; " +
+                            "100 ml port; " +
+                            "2 kg whole dry-aged sirloin of beef; " +
+                            "olive oil; " +
+                            "40 g black peppercorns; " +
+                            "3 sprigs of fresh rosemary",
+
+                    "1. Ideally, make your Yorkie batter the night before. Whisk the eggs," +
+                            " flour, milk, 25ml of water and a pinch of sea salt to a smooth" +
+                            " batter, then pop into the fridge overnight, removing when you" +
+                            " preheat the oven for the meat (or, as a minimum, make the day you " +
+                            "need it but leave to rest at room temperature for at least 30 minutes).; " +
+                            "2. Preheat the oven to 180ºC/350ºF/gas 4.; " +
+                            "3. For the gravy, place the bones in a large roasting tray. Trim, " +
+                            "wash and roughly chop the leeks, quarter the unpeeled onions, then" +
+                            " add to the tray and roast for 45 minutes, or until golden brown.; " +
+                            "4. Remove the bones and veg to a large pot, keeping the tray of" +
+                            " juices to one side. Top up the pot with 2.5 litres of water," +
+                            " bring to the boil, then reduce to a simmer for at least 2 hours" +
+                            " 30 minutes, or until the liquid has reduced by half.; " +
+                            "5. Place the tray over a medium heat on the hob, then add the " +
+                            "flour and stir well to pick up any sticky bits from the bottom." +
+                            " Pour in the wine and port, leave to bubble away for 1 minute," +
+                            " then gradually whisk in a few ladles of the stock, before" +
+                            " tipping it all back into the pot.; " +
+                            "6. Simmer gently for a further 2 hours, or until you reach " +
+                            "your desired consistency.; " +
+                            "7. Lift out the bones and strain the gravy, skimming off any" +
+                            " fat from the surface, then adjust the seasoning, if needed." +
+                            " Keep aside to reheat at the last minute.; " +
+                            "8. When you’re ready, remove the beef from the fridge and leave to" +
+                            " come up to room temperature. Turn the oven up to full whack" +
+                            " (240ºC/475ºF/gas 9).; " +
+                            "9. Score the beef fat in a criss-cross fashion, " +
+                            "then rub with 1 tablespoon of oil.; " +
+                            "10. In a blender, blitz the peppercorns, 1 tablespoon of salt" +
+                            "and the rosemary leaves to a fine dust, then sprinkle and pat" +
+                            " all over the beef.; " +
+                            "11. Place a large roasting tray on a medium-high heat, " +
+                            "carefully sear the beef on all sides, then transfer to the oven.; " +
+                            "12. Immediately reduce the temperature to 180ºC/350ºF/gas 4 and" +
+                            " roast for 50 minutes – this will give you medium-rare" +
+                            " (cook for a little longer, if you prefer) – then remove to a board." +
+                            " Cover and rest for 30 minutes.; " +
+                            "13. Turn the oven up to 220ºC/425ºF/gas 7.; " +
+                            "14. Divide the dripping between a 6-well deep Yorkshire pudding" +
+                            " tray (8.3g per well, if you want to be super-scientific about " +
+                            "it!), then place on the middle shelf of the oven for 5 minutes," +
+                            " or until the fat is smoking hot.; " +
+                            "15. Quickly but carefully pour the batter into the wells – each" +
+                            " should be between half and three-quarters full. Immediately" +
+                            " return to the oven and bake for 25 minutes, or until they have" +
+                            " quadrupled in volume, are deep golden all over and sound hollow" +
+                            " when tapped.; " +
+                            "16. Carve and serve up the beef, adding a Yorkshire pudding to each" +
+                            " plate, then drizzle with gravy (reheat, if needed). Delicious" +
+                            " served with pinches of lemon-dressed watercress, horseradish and" +
+                            " crispy roast potatoes.",
+
+                    R.drawable.mark_hamill_roast_sirloin);
+
+            insertFood(database, "Main", "Crispy skin lemon sole",
+                    "½ x 280 g jar of artichoke hearts in oil; " +
+                            "2 mixed-colour courgettes; " +
+                            "1 bunch of fresh mint , (30g); " +
+                            "2 x 200 g sides of flat white fish , such as lemon sole, skin on," +
+                            " scaled, from sustainable sources; " +
+                            "1-2 fresh mixed-colour chillies",
+
+                    "1. Preheat the grill to high. Scoop out the artichokes, halve" +
+                            " lengthways and place in a large non-stick ovenproof frying pan on" +
+                            " a medium heat with 1 tablespoon of oil from their jar. Quarter the" +
+                            " courgettes lengthways, cut out the core, slice them at an angle the" +
+                            " same size as the artichokes and add to the pan. Cook for 10 minutes," +
+                            " stirring regularly. Finely slice the top leafy half of the mint," +
+                            " tossing half into the pan with a splash of water.; " +
+                            "2. Rub the sole with a little olive oil, sea salt and black pepper," +
+                            " then lay skin side up on the veg. Place the pan directly under the" +
+                            " grill for 7 to 10 minutes, or until the skin is wonderfully crisp" +
+                            " – keep an eye on it! Meanwhile, finely slice the chillies, mix as" +
+                            " much as you dare with the remaining mint, 2 tablespoons of red wine" +
+                            " vinegar and 1 tablespoon of extra virgin olive oil, then taste and" +
+                            " season to perfection. Plate up the veg and sole, pulling back half" +
+                            " the crispy skin to expose the fish, then drizzle over the chilli" +
+                            " mint dressing.",
+
+                    R.drawable.crispy_skin_lemon_sole);
+
+            insertFood(database, "Main", "Sausage linguine",
+                    "150 g dried linguine; " +
+                            "200 g broccoletti , or sprouting broccoli; " +
+                            "olive oil; " +
+                            "1 large higher-welfare sausage , (125g); " +
+                            "1 clove of garlic; " +
+                            "2 anchovy fillets in oil , from sustainable sources; " +
+                            "1 pinch of dried red chilli flakes; " +
+                            "100 ml Frascati white wine; " +
+                            "20 g pecorino , or Parmesan cheese; " +
+                            "extra virgin olive oil",
+
+                    "1. Cook the pasta in a pan of boiling salted water according to the" +
+                            " packet instructions, then drain, reserving a mugful of starchy" +
+                            " cooking water.; " +
+                            "2. Meanwhile, trim the broccoletti (halving any thick stalks" +
+                            " lengthways to make them more delicate to eat). Place a large frying " +
+                            "pan on a medium heat with 1 tablespoon of olive oil. Squeeze the" +
+                            " sausagemeat out of the skin into the pan, breaking it up with a" +
+                            " wooden spoon. Once lightly golden, peel, roughly chop and add the" +
+                            " garlic, followed by the anchovies, chilli flakes, broccoletti and" +
+                            " wine. Leave to bubble away while the pasta cooks.; " +
+                            "3. Toss the drained pasta into the sausage pan, then finely grate" +
+                            " over the pecorino and drizzle with extra virgin olive oil. Toss" +
+                            " again, loosening with a little reserved cooking water, if needed," +
+                            " to create a light, creamy sauce. Taste and season to perfection," +
+                            " then serve right away.",
+
+                    R.drawable.linguine);
+
+            insertFood(database, "Main", "Chicken tikka skewers",
+                    "2 lemons; " +
+                            "olive oil; " +
+                            "2 teaspoons Patak's tikka masala spice paste; " +
+                            "2 tablespoons natural yoghurt , plus extra to serve; " +
+                            "½ a small ripe pineapple; " +
+                            "3 fresh red chillies; " +
+                            "2 skinless free-range chicken breasts; " +
+                            "1-2 little gem lettuces; " +
+                            "½ a bunch of fresh coriander (15g) , optional",
+
+                    "1. For the marinade, finely grate the zest of 1 lemon and reserve" +
+                            " for garnish, then halve and squeeze the juice into a small bowl. " +
+                            "Add 1 teaspoon of oil, the paste and yoghurt, then mix well.; " +
+                            "2. Peel the pineapple, removing any little gnarly bits, then " +
+                            "cut into quarters. Remove and discard the core, then cut into " +
+                            "1cm thick slices and add to the bowl with the marinade.; " +
+                            "3. Trim, halve and deseed the chillies, then add to the marinade." +
+                            " Slice the chicken into 2cm chunks and add to the mix.; " +
+                            "4. Toss together to coat, then place in the fridge to marinate for" +
+                            " at least 2 hours, preferably overnight.; " +
+                            "5. When you’re ready to cook, remove the chicken and pineapple" +
+                            " mixture from the fridge, and pick out and tear the chilli into" +
+                            " smaller pieces. Starting with the chicken, thread the ingredients" +
+                            " onto skewers, alternating between the ingredients, as you go. Pour" +
+                            " any remaining marinade over the the top and drizzle with a little oil.; " +
+                            "6. Put a dry, non-stick pan on a medium heat, add the skewers and" +
+                            " cook for 7 to 10 minutes, or until the chicken is cooked through," +
+                            " turning no more than three times and seasoning on the first turn" +
+                            " with a little sea salt.; " +
+                            "7. Trim the lettuce, then click off leaves to make little cups." +
+                            " Shave the chicken, pineapple and chilli off the skewers with a" +
+                            " sharp knife, then scatter over the reserved lemon zest and pick" +
+                            " over the coriander leaves (if using).; " +
+                            "8. Slice the remaining lemon into wedges for squeezing over and serve" +
+                            " with the lettuce cups and a dollop of yoghurt, if you like.",
+
+                    R.drawable.chicken_tikka_skewers);
+
+
+
+
+
+            insertFood(database, "Desserts", "Chocolate clementine torte",
+                    "350 g quality dark chocolate , (70%); " +
+                            "250 g unsalted butter; " +
+                            "5 large free-range eggs; " +
+                            "250 g white caster sugar; " +
+                            "200 ml fresh clementine juice , (roughly 15 clementines)",
+
+                    "1. Preheat the oven to 120°C/250°F/gas ¾. Snap the chocolate and melt" +
+                            " in a heatproof bowl with 225g of the butter and a pinch of sea salt" +
+                            " over a pan of gently simmering water until smooth and glossy," +
+                            " stirring occasionally. Whisk the eggs and sugar in a freestanding" +
+                            " mixer on a high speed until light, fluffy and tripled in size.; " +
+                            "2. Grease a 25cm round cake tin all over with the remaining butter " +
+                            "and line the base with greaseproof paper. Remove the chocolate from " +
+                            "the heat, leave to stand for a couple of minutes, then pour it into " +
+                            "the egg mixture. Whisk on a medium speed to combine, then pour into " +
+                            "the lined tin. Give a few taps on the work surface to bring the air " +
+                            "bubbles to the surface, then place the tin into a shallow roasting " +
+                            "tray. Place the tray in the oven, then carefully pour enough boiling " +
+                            "kettle water into the tray to come halfway up the side of the cake " +
+                            "tin. Gently slide the shelf back in and bake for 35 to 40 minutes, " +
+                            "or until set but with a slight wobble. ; " +
+                            "3. Squeeze the clementine juice through a sieve into a small pan and " +
+                            "simmer over a low heat for 20 minutes, or until syrupy enough to " +
+                            "coat the back of a spoon. Carefully pour it into a bowl and leave to cool.; " +
+                            "Remove the torte from the oven and leave to cool in the water-filled " +
+                            "tin for 1 hour. Gently loosen the edges with a butter knife, then " +
+                            "carefully turn it out onto a serving board and peel off the paper. " +
+                            "Slice and serve with a drizzle of clementine syrup.",
+
+                    R.drawable.flourless_chocolate_torte);
+
+            insertFood(database, "Desserts", "Cherry chocolate mousse",
+                    "200 g quality dark chocolate , (70%); " +
+                            "1 x 400 g tin of black pitted cherries in syrup; " +
+                            "200 ml double cream; " +
+                            "4 large free-range eggs; " +
+                            "2 tablespoons golden caster sugar",
+
+                    "1. Melt the chocolate in a heatproof bowl over a pan of gently " +
+                            "simmering water, then remove to cool for 10 minutes. Meanwhile, " +
+                            "simmer the cherries and their syrup in a non-stick frying pan on " +
+                            "a medium heat until thick, then remove.; " +
+                            "2. Whip the cream to very soft peaks. Separate the eggs, add the " +
+                            "yolks to the cream with the sugar, and whisk to combine. Add a " +
+                            "pinch of sea salt to the whites and, with a clean whisk, beat until " +
+                            "super-stiff. Fold the cooled chocolate into the cream, then very " +
+                            "gently fold that through the egg whites with a spatula.; " +
+                            "3. Divvy up the mousse between six glasses or bowls, interspersing " +
+                            "the cherries and syrup throughout, and finishing with a few nice " +
+                            "cherries on top.",
+
+                    R.drawable.cherry_chocolate_mousse);
+
+            insertFood(database, "Desserts", "Peach & almond Alaska",
+                    "80 g flaked almonds; " +
+                            "1 x 410 g tin of peach halves in juice; " +
+                            "4 large scoops of vanilla ice cream; " +
+                            "2 large free-range eggs; " +
+                            "100 g golden caster sugar",
+
+                    "1. Preheat the grill to high. Toast the almonds on a tray as it heats" +
+                            " up, keeping a close eye on them and removing as soon as lightly" +
+                            " golden. Slice up the peaches and divide between four ovenproof" +
+                            " bowls, along with their juice. Sit a nice round scoop of ice cream" +
+                            " on top of each, and place in the freezer.; " +
+                            "2. Separate the eggs. Put the whites into the bowl of a" +
+                            " free-standing mixer (save the yolks for another recipe)," +
+                            " add a pinch of sea salt and whisk until the mixture forms stiff " +
+                            "peaks (you could use an electric hand whisk). With the mixer still" +
+                            " running, gradually add the sugar until combined. Spoon into a" +
+                            " piping bag (I like a star-shaped nozzle) or a large sandwich bag" +
+                            " that you can snip the corner off.; " +
+                            "3. Remove the bowls from the freezer and scatter over the toasted" +
+                            " almonds. Pipe the meringue over the ice cream as delicately or " +
+                            "roughly as you like. Now – I work two at a time to retain maximum " +
+                            "control – pop the bowls under the grill for just 2 minutes, or until" +
+                            " golden. Remove carefully and serve right away.",
+
+                    R.drawable.peach_almond_alaska);
+
+            insertFood(database, "Desserts", "Brigadeiros",
+                    "400 g condensed milk; " +
+                            "4 tablespoons cocoa powder; " +
+                            "¼ teaspoon sea salt; " +
+                            "3 tablespoons butter; " +
+                            "1 vanilla pod; " +
+                            "good-quality chocolate sprinkles , for coating",
+
+                    "1. Pour the condensed milk into a heavy-based saucepan and sift in " +
+                            "the cocoa powder and ¼ of a teaspoon of sea salt.; " +
+                            "2. Place over a low heat and cook for 10 to 15 minutes, stirring, " +
+                            "until the mixture is thick, shiny and leaves the sides of the pan " +
+                            "when stirred. Do not leave the pan unattended, as the condensed milk " +
+                            "can burn easily.; " +
+                            "3. Once the chocolate mixture has thickened, remove from the heat" +
+                            " and stir in the butter.; " +
+                            "4. Split the vanilla pod in half lengthways and scrape out the " +
+                            "seeds with the back of a small knife. Add the seeds to the pan " +
+                            "and stir well. (The scraped-out pod can be used to make vanilla " +
+                            "sugar – just put it in your sugar jar and leave it to infuse the sugar).; " +
+                            "5. Let the mixture cool completely, then cover with clingfilm and " +
+                            "chill for about 30 minutes, until set.; " +
+                            "6. Put the chocolate sprinkles in a small bowl. If you have one, " +
+                            "use a mini ice-cream scoop to make a 20g ball and drop it into " +
+                            "the sprinkles (alternatively, use a teaspoon).; " +
+                            "7. Coat it liberally with the sprinkles, roll it with your hands to" +
+                            " make a neat ball and place it in a mini cupcake or petit-four " +
+                            "case. Continue with the rest of the mixture.; " +
+                            "8. Store in an airtight container in the fridge, but take them out" +
+                            " at least half an hour before serving, as they’re best at room temperature.",
+
+                    R.drawable.brigadeiros);
         }
 
         if (oldVersion < 2) {
