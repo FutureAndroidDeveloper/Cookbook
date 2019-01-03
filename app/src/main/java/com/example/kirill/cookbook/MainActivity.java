@@ -17,6 +17,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.xgc1986.parallaxPagerTransformer.ParallaxPagerTransformer;
+
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ViewPager pager;
@@ -34,8 +36,10 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // Set adapter to pager
-        SectionsPagerAdapter pagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         pager = (ViewPager) findViewById(R.id.pager);
+        pager.setPageTransformer(false, new ParallaxPagerTransformer(R.id.food_recycler));
+
+        SectionsPagerAdapter pagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(pagerAdapter);
 
         // Connect tabLayout with viewPager
